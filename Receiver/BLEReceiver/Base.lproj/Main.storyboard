@@ -193,6 +193,17 @@ Reception</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MlT-5o-jDX">
+                                <rect key="frame" x="521" y="562" width="59" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="Rfd-42-C2m"/>
+                                    <constraint firstAttribute="height" constant="30" id="oaI-PB-C3V"/>
+                                </constraints>
+                                <state key="normal" title="Scan All"/>
+                                <connections>
+                                    <segue destination="Gty-KD-c3g" kind="presentation" id="F5d-of-3VV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -215,8 +226,10 @@ Reception</string>
                             <constraint firstItem="K2z-ui-toU" firstAttribute="top" secondItem="Cj4-aa-j2p" secondAttribute="bottom" constant="108" id="VSg-js-yso"/>
                             <constraint firstItem="wcx-Ja-gEY" firstAttribute="top" secondItem="I7W-xW-C47" secondAttribute="bottom" constant="20" id="Vhg-7o-4i0"/>
                             <constraint firstItem="Cj4-aa-j2p" firstAttribute="top" secondItem="I7W-xW-C47" secondAttribute="bottom" constant="158" id="Wxa-kG-bjD"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="MlT-5o-jDX" secondAttribute="bottom" constant="8" id="XCi-62-lg9"/>
                             <constraint firstItem="R8W-g7-pKo" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" id="XJG-b6-0G1"/>
                             <constraint firstItem="R8W-g7-pKo" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="194" id="a7d-dX-eXX"/>
+                            <constraint firstItem="MlT-5o-jDX" firstAttribute="trailing" secondItem="502-Ir-ELC" secondAttribute="trailingMargin" id="exq-2F-o31"/>
                             <constraint firstItem="wcx-Ja-gEY" firstAttribute="centerX" secondItem="502-Ir-ELC" secondAttribute="centerX" id="hqf-dv-At7"/>
                             <constraint firstItem="Cj4-aa-j2p" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="39" id="hsH-Tf-Kii"/>
                             <constraint firstItem="2Wx-g1-TdY" firstAttribute="trailing" secondItem="502-Ir-ELC" secondAttribute="trailingMargin" id="nYP-3z-TpN"/>
@@ -262,6 +275,53 @@ Reception</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-101" y="-243"/>
+        </scene>
+        <!--Bluetooth View Controller-->
+        <scene sceneID="oTg-5k-Tt6">
+            <objects>
+                <viewController id="Gty-KD-c3g" customClass="BluetoothViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YC9-Mf-Jbd"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kbk-LS-7Zc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ILr-tm-FfW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z8-3c-ANE">
+                                <rect key="frame" x="534" y="562" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="k0X-hG-DvV"/>
+                                    <constraint firstAttribute="height" constant="30" id="sjg-LL-ptg"/>
+                                </constraints>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="close:" destination="Gty-KD-c3g" eventType="touchUpInside" id="3Qy-9e-qVu"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plug in phone &amp; check NSLogs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpf-kM-PBQ">
+                                <rect key="frame" x="180" y="289" width="240" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="EDU-x1-feq"/>
+                                    <constraint firstAttribute="height" constant="21" id="y79-X7-OUP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kbk-LS-7Zc" firstAttribute="top" secondItem="0z8-3c-ANE" secondAttribute="bottom" constant="8" id="9lx-Be-fOg"/>
+                            <constraint firstItem="Zpf-kM-PBQ" firstAttribute="centerY" secondItem="ILr-tm-FfW" secondAttribute="centerY" id="9oc-Rf-95G"/>
+                            <constraint firstItem="Zpf-kM-PBQ" firstAttribute="centerX" secondItem="ILr-tm-FfW" secondAttribute="centerX" id="Hfu-eQ-Qz8"/>
+                            <constraint firstItem="0z8-3c-ANE" firstAttribute="trailing" secondItem="ILr-tm-FfW" secondAttribute="trailingMargin" id="WaV-EC-qac"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8MO-jg-pzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="622" y="-243"/>
         </scene>
     </scenes>
     <resources>
