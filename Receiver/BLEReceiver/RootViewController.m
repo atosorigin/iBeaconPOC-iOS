@@ -6,6 +6,7 @@
 //  Copyright © 2016 Atos. All rights reserved.
 //
 
+#import <AVFoundation/AVFoundation.h>
 #import "RootViewController.h"
 
 @interface RootViewController ()
@@ -22,7 +23,11 @@
 
 @end
 
-@implementation RootViewController
+@implementation RootViewController {
+    NSUUID *latestUUID;
+    NSNumber *latestMax;
+    NSNumber *latestMin;
+}
 
 NSString *const groupUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
 NSString *const groupId = @"net.atos.mobile.beacon";
@@ -97,37 +102,57 @@ NSString *const groupId = @"net.atos.mobile.beacon";
         
         if (beacon.accuracy != CLProximityUnknown) {
             nearestBeacon = beacon;
+            
             break;
         }
     }
     
     if (nearestBeacon != nil) {
         
-        [_labelStatus setHidden:NO];
-        [_labelBeaconDetails setHidden:NO];
-
-        _labelBeaconDetails.text = [NSString stringWithFormat:@"RSSI: %d", (int)nearestBeacon.rssi];
-        
-        int nearestMajor = [nearestBeacon.major intValue];
-        
-        switch (nearestMajor) {
-            case 1:
-                [_viewKitchen setHidden:NO];
-                [_viewReception setHidden:YES];
-                [_viewDesk setHidden:YES];
-                break;
-            case 2:
-                [_viewKitchen setHidden:YES];
-                [_viewReception setHidden:NO];
-                [_viewDesk setHidden:YES];
-                break;
-            case 3:
-                [_viewKitchen setHidden:YES];
-                [_viewReception setHidden:YES];
-                [_viewDesk setHidden:NO];
-                break;
-            default:
-                break;
+        if ([self isNewBeacon: nearestBeacon]) {
+            
+            latestUUID = nearestBeacon.proximityUUID;
+            latestMax = nearestBeacon.major;
+            latestMin = nearestBeacon.minor;
+            
+            [_labelStatus setHidden:NO];
+            [_labelBeaconDetails setHidden:NO];
+            
+            _labelBeaconDetails.text = [NSString stringWithFormat:@"RSSI: %d", (int)nearestBeacon.rssi];
+            
+            int nearestMajor = [nearestBeacon.major intValue];
+            
+            NSString *speech;
+            
+            switch (nearestMajor) {
+                case 1:
+                    [_viewKitchen setHidden:NO];
+                    [_viewReception setHidden:YES];
+                    [_viewDesk setHidden:YES];
+                    speech = @"You Are Now In The Kitchen";
+                    break;
+                case 2:
+                    [_viewKitchen setHidden:YES];
+                    [_viewReception setHidden:NO];
+                    [_viewDesk setHidden:YES];
+                    speech = @"You Are Now In The Reception";
+                    break;
+                case 3:
+                    [_viewKitchen setHidden:YES];
+                    [_viewReception setHidden:YES];
+                    [_viewDesk setHidden:NO];
+                    speech = @"You Are Now At Our Desks";
+                    break;
+                default:
+                    speech = @"You're Lost!";
+                    break;
+            }
+            
+            AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
+            utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
+            
+            AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+            [synth speakUtterance:utterance];
         }
     } else {
         
@@ -138,6 +163,20 @@ NSString *const groupId = @"net.atos.mobile.beacon";
         [_viewDesk setHidden:YES];
     }
     
+}
+
+- (BOOL)isNewBeacon:(CLBeacon*)beacon {
+    
+    BOOL sameBeacon = false;
+    
+    if ([beacon.proximityUUID isEqual:latestUUID] &&
+        [beacon.major isEqual:latestMax] &&
+        [beacon.minor isEqual:latestMin]) {
+        
+        sameBeacon = true;
+    }
+    
+    return !sameBeacon;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {

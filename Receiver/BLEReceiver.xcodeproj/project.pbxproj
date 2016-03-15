@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A52190F61C9178CE004DEC81 /* BluetoothViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190F51C9178CE004DEC81 /* BluetoothViewController.m */; };
+		A52190F81C982559004DEC81 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A52190F71C982559004DEC81 /* AVFoundation.framework */; };
 		A5ED119F1C8F0B5E00108EC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED119E1C8F0B5E00108EC7 /* main.m */; };
 		A5ED11A21C8F0B5E00108EC7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */; };
 		A5ED11A51C8F0B5E00108EC7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A41C8F0B5E00108EC7 /* RootViewController.m */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		A52190F41C9178CE004DEC81 /* BluetoothViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothViewController.h; sourceTree = "<group>"; };
 		A52190F51C9178CE004DEC81 /* BluetoothViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothViewController.m; sourceTree = "<group>"; };
+		A52190F71C982559004DEC81 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED119E1C8F0B5E00108EC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -40,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A52190F81C982559004DEC81 /* AVFoundation.framework in Frameworks */,
 				A5ED11BC1C8F0CEA00108EC7 /* CoreBluetooth.framework in Frameworks */,
 				A5ED11BD1C8F0CEA00108EC7 /* CoreLocation.framework in Frameworks */,
 			);
@@ -51,6 +54,7 @@
 		A5ED11911C8F0B5E00108EC7 = {
 			isa = PBXGroup;
 			children = (
+				A52190F71C982559004DEC81 /* AVFoundation.framework */,
 				A5ED11BA1C8F0CEA00108EC7 /* CoreBluetooth.framework */,
 				A5ED11BB1C8F0CEA00108EC7 /* CoreLocation.framework */,
 				A5ED119C1C8F0B5E00108EC7 /* BLEReceiver */,
