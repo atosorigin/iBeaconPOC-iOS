@@ -13,9 +13,7 @@
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) NSUUID *beaconUUID;
-@property (strong, nonatomic) NSNumber *beaconMajor;
-@property (strong, nonatomic) NSNumber *beaconMinor;
+@property (strong, nonatomic) CLBeacon *currentBeacon;
 
 @property (nonatomic) BOOL hasAuthorisation;
 
@@ -104,7 +102,7 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     if (_hasAuthorisation) {
         
         NSLog(@"Location Manager - starting monitoring for region[%@]", _beaconRegion);
-        
+
         [_locationManager startRangingBeaconsInRegion:_beaconRegion];
         [_delegate beaconManagerStartedMonitoring];
     }
@@ -120,31 +118,26 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 }
 
 - (void)clearLatestBeacon {
-    _beaconUUID = nil;
-    _beaconMajor = nil;
-    _beaconMinor = nil;
     
+    _currentBeacon = nil;
     _currentLocation = BeaconLocationNone;
 }
 
 - (BOOL)hasChangedBeacon:(CLBeacon*)beacon {
     
-    //TODO Proximity Stuff Here
-    
+    //TODO Is the new beacon closer than the old beacon by a considerable amount?
     BOOL newBeacon = false;
     
-    if ([beacon.proximityUUID isEqual:_beaconUUID] &&
-        [beacon.major isEqual:_beaconMajor] &&
-        [beacon.minor isEqual:_beaconMinor]) {
+    if ([beacon.proximityUUID isEqual:_currentBeacon.proximityUUID] &&
+        [beacon.major isEqual:_currentBeacon.major] &&
+        [beacon.minor isEqual:_currentBeacon.minor]) {
         
         [self logIfTracing:[NSString stringWithFormat:@"nearest beacon is [the same] as before"]];
         
         newBeacon = false;
     } else {
         
-        _beaconUUID = beacon.proximityUUID;
-        _beaconMajor = beacon.major;
-        _beaconMinor = beacon.minor;
+        _currentBeacon = beacon;
         
         newBeacon = true;
         
@@ -170,10 +163,10 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
     BeaconLocation newLocation = BeaconLocationNone;
     
-    if ([[_beaconUUID UUIDString] isEqualToString:atosBeaconUUID]) {
+    if ([[_currentBeacon.proximityUUID UUIDString] isEqualToString:atosBeaconUUID]) {
         
         //we could just do this as _currentLocation = [_beaconMajor intValue], but this way guards against beacons we don't expect
-        switch ([_beaconMajor intValue]) {
+        switch ([_currentBeacon.major intValue]) {
             case BeaconLocationNone:
                 newLocation = BeaconLocationNone;
                 break;
@@ -221,12 +214,31 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
     [self logIfTracing:[NSString stringWithFormat:@"ranging found [%lu] beacons, checking nearest", (unsigned long)beacons.count]];
     
-    //the beacons array generally comes sorted with Unknowns, then closest to furthest. This isn't documented though so probably don't want to rely on this in a real app
+    //sort the beacons by Proximity then Accuracy (Nearest to Furthest)
+    NSArray<CLBeacon*> *sortedBeacons = [beacons sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *obj1, CLBeacon* obj2) {
+
+        if (obj1.proximity < obj2.proximity) {
+            return NSOrderedAscending;
+        } else if (obj1.proximity > obj2.proximity) {
+            return NSOrderedDescending;
+        } else {
+            
+            if (obj1.accuracy < obj2.accuracy) {
+                return NSOrderedAscending;
+            } else if (obj1.accuracy > obj2.accuracy) {
+                return NSOrderedDescending;
+            } else {
+                return NSOrderedSame;
+            }
+            
+        }
+    }];
     
     CLBeacon *nearestBeacon = nil;
-    for (CLBeacon *beacon in beacons) {
+    for (CLBeacon *beacon in sortedBeacons) {
         
-        if (beacon.accuracy != CLProximityUnknown) {
+        //beacons with an unknown location/accuracy will be first, filter these out
+        if (beacon.proximity != CLProximityUnknown && beacon.accuracy != -1) {
             nearestBeacon = beacon;
             
             break;
