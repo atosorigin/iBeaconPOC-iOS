@@ -32,7 +32,6 @@
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
     [_locationManager initialiseLocationManager];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
