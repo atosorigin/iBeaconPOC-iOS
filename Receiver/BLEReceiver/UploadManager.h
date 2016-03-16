@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#import "ISO8601.h"
+
 
 typedef void (^UploadSuccessBlock) ();
 typedef void (^UploadFailedBlock) (NSError *error);
@@ -18,6 +20,7 @@ typedef void (^UploadFailedBlock) (NSError *error);
 
 + (id)sharedInstance;
 
-- (void)upload:(NSArray*)data successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
+- (void)upload:(NSString*)deviceId location:(NSInteger)locationId
+    successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
 
 @end

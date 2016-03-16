@@ -33,15 +33,17 @@
     return sharedInstance;
 }
 
-- (void)upload:(NSArray*)data successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed {
-    NSLog(@"UploadManager upload %@", data);
+- (void)upload:(NSString*)deviceId location:(NSInteger)locationId successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed {
+    
+    NSDate *now = [NSDate date];
+    NSDictionary *json = @{@"deviceId" : deviceId, @"locationId" : [NSString stringWithFormat:@"%li", (long)locationId],
+                           @"datetime" : [now ISO8601String]};
+                                                    
+    NSArray *data = @[json];
     
     [self POST:@"/api/deviceLocation" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"success");
-        
         success();
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"failed to upload %@", error);
         failed(error);
     }];
     

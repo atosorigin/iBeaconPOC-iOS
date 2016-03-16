@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BeaconLocationManager.h"
+#import "UploadManager.h"
+
 
 @interface RootViewController : UIViewController<BeaconLocationManagerDelegate>
 

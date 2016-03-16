@@ -31,6 +31,7 @@
     
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
+    _locationManager.traceLog = NO;
     [_locationManager initialiseLocationManager];
 }
 
@@ -107,6 +108,7 @@
     [_viewReception setHidden:YES];
     [_viewDesk setHidden:YES];
     
+    [self uploadLocationChange:-1];
     [self speak:@"You have now left the area!"];
 }
 
@@ -116,6 +118,8 @@
     [_labelBeaconDetails setHidden:NO];
     
     _labelBeaconDetails.text = [self stringFromBeacon:beacon];
+    
+    [self uploadLocationChange:currentLocation];
     
     NSString *speech;
     
@@ -145,6 +149,16 @@
     }
     
     [self speak:speech];
+    
+}
+
+- (void)uploadLocationChange:(NSInteger)location {
+    
+    [[UploadManager sharedInstance] upload:@"1234567" location:location successBlock:^{
+        // could add visual indicator
+    } failedBlock:^(NSError *error) {
+        NSLog(@"Failed to upload %@", error);
+    }];
     
 }
 
