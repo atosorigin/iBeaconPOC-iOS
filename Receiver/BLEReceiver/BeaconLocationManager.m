@@ -14,6 +14,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) CLBeacon *currentBeacon;
+@property (nonatomic) int numConsecutiveBeaconDropouts;
 
 @property (nonatomic) BOOL hasAuthorisation;
 
@@ -34,7 +35,10 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         [self clearLatestBeacon];
         
         _hasAuthorisation = NO;
+        _dropoutThreshold = 2;
+        
         _traceLog = YES;
+        _numConsecutiveBeaconDropouts = 0;
     }
     
     return self;
@@ -102,7 +106,7 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     if (_hasAuthorisation) {
         
         NSLog(@"Location Manager - starting monitoring for region[%@]", _beaconRegion);
-
+        
         [_locationManager startRangingBeaconsInRegion:_beaconRegion];
         [_delegate beaconManagerStartedMonitoring];
     }
@@ -123,18 +127,24 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     _currentLocation = BeaconLocationNone;
 }
 
+- (BOOL)beacon:(CLBeacon*)beacon1 isEquivalentToBeacon:(CLBeacon*)beacon2 {
+    
+    return ([beacon1.proximityUUID isEqual:beacon2.proximityUUID] &&
+            [beacon1.major isEqual:beacon2.major] &&
+            [beacon1.minor isEqual:beacon2.minor]);
+}
+
 - (BOOL)hasChangedBeacon:(CLBeacon*)beacon {
     
     //TODO Is the new beacon closer than the old beacon by a considerable amount?
     BOOL newBeacon = false;
     
-    if ([beacon.proximityUUID isEqual:_currentBeacon.proximityUUID] &&
-        [beacon.major isEqual:_currentBeacon.major] &&
-        [beacon.minor isEqual:_currentBeacon.minor]) {
+    if ([self beacon:beacon isEquivalentToBeacon:_currentBeacon]) {
         
         [self logIfTracing:[NSString stringWithFormat:@"nearest beacon is [the same] as before"]];
         
         newBeacon = false;
+        
     } else {
         
         _currentBeacon = beacon;
@@ -235,14 +245,35 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     }];
     
     CLBeacon *nearestBeacon = nil;
+    BOOL nearestBeaconDidDropout = false;
     for (CLBeacon *beacon in sortedBeacons) {
         
         //beacons with an unknown location/accuracy will be first, filter these out
         if (beacon.proximity != CLProximityUnknown && beacon.accuracy != -1) {
             nearestBeacon = beacon;
-            
             break;
+        } else {
+            //nearest beacon is unknown, lets check to see if its the beacon we're currently attached to
+            if ([self beacon:beacon isEquivalentToBeacon:_currentBeacon]) {
+                
+                _numConsecutiveBeaconDropouts++;
+                
+                [self logIfTracing:[NSString stringWithFormat:@"current beacon has dropped out [%d] time/s, threshold is [%d]", _numConsecutiveBeaconDropouts, _dropoutThreshold]];
+                
+                //if the beacon has dropped out less than equal to the threshold, continue as if the beacon is still connected
+                if (_numConsecutiveBeaconDropouts <= _dropoutThreshold) {
+                
+                    nearestBeacon = _currentBeacon;
+                    nearestBeaconDidDropout = true;
+                    break;
+                }
+            }
         }
+    }
+    
+    //reset the counter if we're not dealing with a dropout beacon
+    if (!nearestBeaconDidDropout) {
+        _numConsecutiveBeaconDropouts = 0;
     }
     
     if (nearestBeacon != nil) {

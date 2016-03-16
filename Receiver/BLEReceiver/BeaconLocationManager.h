@@ -22,7 +22,12 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 
 @property (nonatomic, weak) id<BeaconLocationManagerDelegate> delegate;
 @property (nonatomic) BeaconLocation currentLocation;
+
+//if true, logs out every poll interval (second) with beacon details
 @property (nonatomic) BOOL traceLog;
+
+//the number of dropouts allowed for the current beacon before it's considered dropped
+@property (nonatomic) int dropoutThreshold;
 
 - (void)initialiseLocationManager;
 - (void)startMonitoring;
