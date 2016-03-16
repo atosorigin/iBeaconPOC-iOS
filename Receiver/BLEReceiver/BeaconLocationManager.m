@@ -252,11 +252,16 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         
     } else {
         
+        //no beacons in range
         [self logIfTracing:[NSString stringWithFormat:@"no beacons detected with suitable accuracy"]];
         
-        //no beacons in range
-        [self clearLatestBeacon];
-        [_delegate beaconManagerDetectedNoBeacons];
+        //check to see whether this is a new exit or not
+        if (_currentLocation != BeaconLocationNone) {
+        
+            [self clearLatestBeacon];
+            [_delegate beaconManagerDetectedNoBeacons];
+        
+        }
     }
     
 }

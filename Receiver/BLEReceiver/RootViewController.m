@@ -70,6 +70,15 @@
     return string;
 }
 
+- (void)speak:(NSString*)speech {
+    
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
+    
+    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+    [synth speakUtterance:utterance];
+}
+
 #pragma mark BeaconLocationManagerDelegate
 
 - (void)beaconManagerAuthorisationToContinue {
@@ -98,6 +107,8 @@
     [_viewKitchen setHidden:YES];
     [_viewReception setHidden:YES];
     [_viewDesk setHidden:YES];
+    
+    [self speak:@"You have now left the area!"];
 }
 
 - (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
@@ -134,11 +145,8 @@
             break;
     }
     
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
-    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
+    [self speak:speech];
     
-    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-    [synth speakUtterance:utterance];
 }
 
 - (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
