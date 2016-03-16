@@ -14,7 +14,9 @@ typedef void (^UploadFailedBlock) (NSError *error);
 
 #define kBaseURL @"http://development-visitorpal.rhcloud.com"
 
-@interface UploadManager : NSObject
+@interface UploadManager : AFHTTPSessionManager
+
++ (id)sharedInstance;
 
 - (void)upload:(NSArray*)data successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
 

@@ -12,15 +12,31 @@
     
 }
 
+- (instancetype)init {
+    self = [super initWithBaseURL:[NSURL URLWithString:kBaseURL]];
+    
+    if (self) {
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
+    }
+    
+    return self;
+}
+
++ (id)sharedInstance {
+    static dispatch_once_t once;
+    static UploadManager *sharedInstance;
+    
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
 - (void)upload:(NSArray*)data successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed {
     NSLog(@"UploadManager upload %@", data);
     
-    NSURL *url = [NSURL URLWithString:kBaseURL];
-    
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:url];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager POST:@"/api/deviceLocation" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self POST:@"/api/deviceLocation" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"success");
         
         success();

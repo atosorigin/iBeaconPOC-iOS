@@ -14,11 +14,14 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - ISO8601 (0.5.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - ISO8601 (~> 0.5)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  ISO8601: 25d7a973fa8daf31a50bbd0401d2e7b98e8a7df3
 
 COCOAPODS: 0.39.0
