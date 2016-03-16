@@ -11,8 +11,7 @@
 
 @interface RootViewController ()
 
-@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
-@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) BeaconLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UIView *viewKitchen;
 @property (weak, nonatomic) IBOutlet UIView *viewReception;
@@ -24,170 +23,128 @@
 @end
 
 @implementation RootViewController {
-    NSUUID *latestUUID;
-    NSNumber *latestMax;
-    NSNumber *latestMin;
-}
 
-NSString *const groupUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
-NSString *const groupId = @"net.atos.mobile.beacon";
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self initBeaconRegions];
-    [self initLocationManager];
+    _locationManager = [[BeaconLocationManager alloc] init];
+    _locationManager.delegate = self;
+    [_locationManager initialiseLocationManager];
     
 }
 
-- (void)initLocationManager {
+- (void)viewWillAppear:(BOOL)animated {
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    
-    if (![CLLocationManager locationServicesEnabled]) {
-        NSLog(@"Location services disabled, starting");
-        [self.locationManager startUpdatingLocation];
-    }
-    
-    if (![CLLocationManager isRangingAvailable]) {
-        NSLog(@"ERROR - Ranging Not Available");
-    }
-    
-    if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
-        NSLog(@"ERROR - Monitoring Not Available");
-    }
-    
-    if ([[UIApplication sharedApplication] backgroundRefreshStatus] != UIBackgroundRefreshStatusAvailable) {
-        NSLog(@"ERROR - Background Refresh Not Available");
-    }
-    
-    [self.locationManager requestWhenInUseAuthorization];
-    
+    [_locationManager startMonitoring];
 }
 
-- (void)initBeaconRegions {
+- (void)viewDidDisappear:(BOOL)animated {
     
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:groupUUID];
-    
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:groupId];
-    
-    self.beaconRegion.notifyEntryStateOnDisplay = YES;
-    self.beaconRegion.notifyOnEntry = YES;
-    self.beaconRegion.notifyOnExit = YES;
+    [_locationManager stopMonitoring];
 }
 
-- (void)startMonitoring {
+- (NSString*)stringFromBeacon:(CLBeacon*)beacon {
     
-    NSLog(@"Will start ranging beacons in region");
-    [self.locationManager startRangingBeaconsInRegion:_beaconRegion];
+    NSString *string = [NSString stringWithFormat:@"RSSI = %ld \nAccuracy = %.3fm \n", (long)beacon.rssi, beacon.accuracy];
     
+    NSString *proximity;
+    switch (beacon.proximity) {
+        case CLProximityUnknown:
+            proximity = @"CLProximityUnknown";
+            break;
+        case CLProximityFar:
+            proximity = @"CLProximityFar";
+            break;
+        case CLProximityImmediate:
+            proximity = @"CLProximityImmediate";
+            break;
+        case CLProximityNear:
+            proximity = @"CLProximityNear";
+            break;
+    }
+    
+    string = [string stringByAppendingString:proximity];
+    
+    return string;
+}
+
+#pragma mark BeaconLocationManagerDelegate
+
+- (void)beaconManagerAuthorisationToContinue {
+    
+    [_locationManager startMonitoring];
+}
+
+- (void)beaconManagerAuthorisationError {
+    NSLog(@"Beacon Manager didn't manage to authorise, won't work!");
+}
+
+- (void)beaconManagerStartedMonitoring {
     [_labelScanning setHidden:NO];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)beaconManagerStoppedMonitoring {
+    [_labelScanning setHidden:YES];
+    [self beaconManagerDetectedNoBeacons];
 }
 
-#pragma mark LocationManager
+- (void)beaconManagerDetectedNoBeacons {
+    
+    [_labelBeaconDetails setHidden:YES];
+    [_labelStatus setHidden:YES];
+    
+    [_viewKitchen setHidden:YES];
+    [_viewReception setHidden:YES];
+    [_viewDesk setHidden:YES];
+}
 
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray<CLBeacon *> *)beacons inRegion:(CLBeaconRegion *)region {
+- (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
     
-    NSLog(@"DidRangeBeacons - found %lu beacons", (unsigned long)beacons.count);
+    [_labelStatus setHidden:NO];
+    [_labelBeaconDetails setHidden:NO];
     
-    //the beacons array generally comes sorted with Unknowns, then closest to furthest. This isn't documented though so probably don't want to rely on this in a real app
-    CLBeacon *nearestBeacon = nil;
-    for (CLBeacon *beacon in beacons) {
-        
-        if (beacon.accuracy != CLProximityUnknown) {
-            nearestBeacon = beacon;
-            
+    _labelBeaconDetails.text = [self stringFromBeacon:beacon];
+    
+    NSString *speech;
+    
+    switch (currentLocation) {
+        case BeaconLocationKitchen:
+            [_viewKitchen setHidden:NO];
+            [_viewReception setHidden:YES];
+            [_viewDesk setHidden:YES];
+            speech = @"You Are Now In The Kitchen";
             break;
-        }
+        case BeaconLocationReception:
+            [_viewKitchen setHidden:YES];
+            [_viewReception setHidden:NO];
+            [_viewDesk setHidden:YES];
+            speech = @"You Are Now In The Reception";
+            break;
+        case BeaconLocationDesk:
+            [_viewKitchen setHidden:YES];
+            [_viewReception setHidden:YES];
+            [_viewDesk setHidden:NO];
+            speech = @"You Are Now At Our Desks";
+            break;
+        case BeaconLocationNone:
+        default:
+            speech = @"You're Lost!";
+            break;
     }
     
-    if (nearestBeacon != nil) {
-        
-        if ([self isNewBeacon: nearestBeacon]) {
-            
-            latestUUID = nearestBeacon.proximityUUID;
-            latestMax = nearestBeacon.major;
-            latestMin = nearestBeacon.minor;
-            
-            [_labelStatus setHidden:NO];
-            [_labelBeaconDetails setHidden:NO];
-            
-            _labelBeaconDetails.text = [NSString stringWithFormat:@"RSSI: %d", (int)nearestBeacon.rssi];
-            
-            int nearestMajor = [nearestBeacon.major intValue];
-            
-            NSString *speech;
-            
-            switch (nearestMajor) {
-                case 1:
-                    [_viewKitchen setHidden:NO];
-                    [_viewReception setHidden:YES];
-                    [_viewDesk setHidden:YES];
-                    speech = @"You Are Now In The Kitchen";
-                    break;
-                case 2:
-                    [_viewKitchen setHidden:YES];
-                    [_viewReception setHidden:NO];
-                    [_viewDesk setHidden:YES];
-                    speech = @"You Are Now In The Reception";
-                    break;
-                case 3:
-                    [_viewKitchen setHidden:YES];
-                    [_viewReception setHidden:YES];
-                    [_viewDesk setHidden:NO];
-                    speech = @"You Are Now At Our Desks";
-                    break;
-                default:
-                    speech = @"You're Lost!";
-                    break;
-            }
-            
-            AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
-            utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
-            
-            AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
-            [synth speakUtterance:utterance];
-        }
-    } else {
-        
-        [_labelBeaconDetails setHidden:YES];
-        [_labelStatus setHidden:YES];
-        [_viewKitchen setHidden:YES];
-        [_viewReception setHidden:YES];
-        [_viewDesk setHidden:YES];
-    }
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:speech];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"];
     
+    AVSpeechSynthesizer *synth = [[AVSpeechSynthesizer alloc] init];
+    [synth speakUtterance:utterance];
 }
 
-- (BOOL)isNewBeacon:(CLBeacon*)beacon {
+- (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
     
-    BOOL sameBeacon = false;
-    
-    if ([beacon.proximityUUID isEqual:latestUUID] &&
-        [beacon.major isEqual:latestMax] &&
-        [beacon.minor isEqual:latestMin]) {
-        
-        sameBeacon = true;
-    }
-    
-    return !sameBeacon;
+    _labelBeaconDetails.text = [self stringFromBeacon:beacon];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        
-        NSLog(@"Received Authorisation");
-        
-        [self startMonitoring];
-    }
-    
-}
 
 @end

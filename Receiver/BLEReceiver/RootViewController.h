@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
+#import "BeaconLocationManager.h"
 
-@interface RootViewController : UIViewController<CLLocationManagerDelegate>
+@interface RootViewController : UIViewController<BeaconLocationManagerDelegate>
 
 @end
 

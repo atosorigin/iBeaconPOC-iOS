@@ -183,11 +183,11 @@ Reception</string>
                                     </mask>
                                 </variation>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBo-7V-k6d">
-                                <rect key="frame" x="400" y="63" width="180" height="42"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="MBo-7V-k6d">
+                                <rect key="frame" x="400" y="63" width="180" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="0Z9-hh-rVP"/>
-                                    <constraint firstAttribute="height" constant="42" id="KRt-O8-gXD"/>
+                                    <constraint firstAttribute="height" constant="60" id="KRt-O8-gXD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
