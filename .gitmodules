@@ -1,0 +1,3 @@
+[submodule "Server"]
+	path = Server
+	url = ssh://56e7e75a7628e1548b000005@development-visitorpal.rhcloud.com/~/git/development.git/
