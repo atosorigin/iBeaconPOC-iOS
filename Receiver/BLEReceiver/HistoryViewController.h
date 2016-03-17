@@ -11,6 +11,6 @@
 #import "AppDelegate.h"
 #import "DeviceLocation.h"
 
-@interface HistoryTableViewController : UITableViewController
+@interface HistoryViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 @end

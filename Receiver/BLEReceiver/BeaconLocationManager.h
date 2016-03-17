@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 
 @property (nonatomic, weak) id<BeaconLocationManagerDelegate> delegate;
 @property (nonatomic) BeaconLocation currentLocation;
+@property (strong, nonatomic) CLBeacon *currentBeacon;
 
 //if true, logs out every poll interval (second) with beacon details
 @property (nonatomic) BOOL traceLog;

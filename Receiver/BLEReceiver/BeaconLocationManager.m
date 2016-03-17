@@ -13,7 +13,6 @@
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (strong, nonatomic) CLBeacon *currentBeacon;
 @property (nonatomic) int numConsecutiveBeaconDropouts;
 
 @property (nonatomic) BOOL hasAuthorisation;
@@ -41,6 +40,8 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
             return @"Reception";
         case BeaconLocationDesk:
             return @"Desk";
+        case BeaconLocationNone:
+            return @"Outside Region";
         default:
             return @"Invalid Location";
     }

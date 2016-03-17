@@ -35,16 +35,17 @@
     _locationManager.traceLog = YES;
     [_locationManager initialiseLocationManager];
     
+    [_locationManager startMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    [_locationManager startMonitoring];
+    //[_locationManager startMonitoring];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     
-    [_locationManager stopMonitoring];
+    //[_locationManager stopMonitoring];
 }
 
 - (NSString*)stringFromBeacon:(CLBeacon*)beacon {
@@ -108,14 +109,13 @@
 
 - (void)beaconManagerStoppedMonitoring {
     [_labelScanning setHidden:YES];
-    [self configureUINoBeacons];
 }
 
 - (void)beaconManagerDetectedNoBeacons {
     
     [self configureUINoBeacons];
     
-    [self saveLocationChange:-1];
+    [self saveLocationChange:BeaconLocationNone];
     [self speak:@"You have now left the area!"];
 }
 
