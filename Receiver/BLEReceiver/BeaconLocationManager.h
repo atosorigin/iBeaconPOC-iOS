@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 - (void)startMonitoring;
 - (void)stopMonitoring;
 
++ (BeaconLocation)getLocationForID:(int)locationId;
++ (NSString*)getLocationDescriptionForLocation:(BeaconLocation)location;
+
 @end
 
 @protocol BeaconLocationManagerDelegate <NSObject>

@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A52190F61C9178CE004DEC81 /* BluetoothViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190F51C9178CE004DEC81 /* BluetoothViewController.m */; };
 		A52190F81C982559004DEC81 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A52190F71C982559004DEC81 /* AVFoundation.framework */; };
 		A52190FB1C9869CE004DEC81 /* BeaconLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190FA1C9869CE004DEC81 /* BeaconLocationManager.m */; };
+		A52190FF1C9ABFE7004DEC81 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */; };
+		A52191021C9AC0E2004DEC81 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52191011C9AC0E2004DEC81 /* HistoryTableViewController.m */; };
 		A5ED119F1C8F0B5E00108EC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED119E1C8F0B5E00108EC7 /* main.m */; };
 		A5ED11A21C8F0B5E00108EC7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */; };
 		A5ED11A51C8F0B5E00108EC7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A41C8F0B5E00108EC7 /* RootViewController.m */; };
@@ -25,11 +26,13 @@
 /* Begin PBXFileReference section */
 		04D8014680EE23447C8907EF /* libPods-BLEReceiver.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BLEReceiver.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51C5AFE33F4F2675A73980F0 /* Pods-BLEReceiver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLEReceiver.release.xcconfig"; path = "Pods/Target Support Files/Pods-BLEReceiver/Pods-BLEReceiver.release.xcconfig"; sourceTree = "<group>"; };
-		A52190F41C9178CE004DEC81 /* BluetoothViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothViewController.h; sourceTree = "<group>"; };
-		A52190F51C9178CE004DEC81 /* BluetoothViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothViewController.m; sourceTree = "<group>"; };
 		A52190F71C982559004DEC81 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A52190F91C9869CE004DEC81 /* BeaconLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconLocationManager.h; sourceTree = "<group>"; };
 		A52190FA1C9869CE004DEC81 /* BeaconLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconLocationManager.m; sourceTree = "<group>"; };
+		A52190FD1C9ABFE7004DEC81 /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
+		A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
+		A52191001C9AC0E2004DEC81 /* HistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		A52191011C9AC0E2004DEC81 /* HistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
 		A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED119E1C8F0B5E00108EC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -79,6 +82,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A52190FC1C9ABFBF004DEC81 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A52190FD1C9ABFE7004DEC81 /* HistoryTableViewCell.h */,
+				A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		A5ED11911C8F0B5E00108EC7 = {
 			isa = PBXGroup;
 			children = (
@@ -103,12 +115,13 @@
 		A5ED119C1C8F0B5E00108EC7 /* BLEReceiver */ = {
 			isa = PBXGroup;
 			children = (
+				A52190FC1C9ABFBF004DEC81 /* UI */,
 				A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */,
 				A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */,
-				A52190F41C9178CE004DEC81 /* BluetoothViewController.h */,
-				A52190F51C9178CE004DEC81 /* BluetoothViewController.m */,
 				A5ED11A31C8F0B5E00108EC7 /* RootViewController.h */,
 				A5ED11A41C8F0B5E00108EC7 /* RootViewController.m */,
+				A52191001C9AC0E2004DEC81 /* HistoryTableViewController.h */,
+				A52191011C9AC0E2004DEC81 /* HistoryTableViewController.m */,
 				A5ED11AC1C8F0B5E00108EC7 /* Main.storyboard */,
 				A5ED11AF1C8F0B5E00108EC7 /* Assets.xcassets */,
 				A5ED11B11C8F0B5E00108EC7 /* LaunchScreen.storyboard */,
@@ -257,8 +270,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5ED11A21C8F0B5E00108EC7 /* AppDelegate.m in Sources */,
-				A52190F61C9178CE004DEC81 /* BluetoothViewController.m in Sources */,
 				A5ED119F1C8F0B5E00108EC7 /* main.m in Sources */,
+				A52191021C9AC0E2004DEC81 /* HistoryTableViewController.m in Sources */,
+				A52190FF1C9ABFE7004DEC81 /* HistoryTableViewCell.m in Sources */,
 				A52190FB1C9869CE004DEC81 /* BeaconLocationManager.m in Sources */,
 				FDD9CBF71C997842009AFFDD /* UploadManager.m in Sources */,
 				A5ED11A51C8F0B5E00108EC7 /* RootViewController.m in Sources */,

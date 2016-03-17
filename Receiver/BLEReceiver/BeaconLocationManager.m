@@ -27,6 +27,26 @@
 static NSString *const atosBeaconUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
 static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 
++ (BeaconLocation)getLocationForID:(int)locationId {
+    
+    return (BeaconLocation)locationId;
+}
+
++ (NSString*)getLocationDescriptionForLocation:(BeaconLocation)location {
+    
+    switch (location) {
+        case BeaconLocationKitchen:
+            return @"Kitchen";
+        case BeaconLocationReception:
+            return @"Reception";
+        case BeaconLocationDesk:
+            return @"Desk";
+        default:
+            return @"Invalid Location";
+    }
+    
+}
+
 - (id)init {
     
     self = [super init];
