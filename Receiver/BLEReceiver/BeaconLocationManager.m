@@ -198,6 +198,25 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     return newLocation;
 }
 
+- (NSArray<CLBeacon*>*)sortBeaconsByAccuracy:(NSArray<CLBeacon*>*)beacons {
+    
+    //sort the beacons by Proximity then Accuracy (Nearest to Furthest)
+    NSArray<CLBeacon*> *sortedBeacons = [beacons sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *obj1, CLBeacon* obj2) {
+        
+        if (obj1.accuracy < obj2.accuracy) {
+            return NSOrderedAscending;
+        } else if (obj1.accuracy > obj2.accuracy) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+        
+    }];
+    
+    return sortedBeacons;
+    
+}
+
 #pragma mark LocationManager Delegate
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -224,18 +243,7 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
     [self logIfTracing:[NSString stringWithFormat:@"ranging found [%lu] beacons, checking nearest", (unsigned long)beacons.count]];
     
-    //sort the beacons by Proximity then Accuracy (Nearest to Furthest)
-    NSArray<CLBeacon*> *sortedBeacons = [beacons sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *obj1, CLBeacon* obj2) {
-            
-            if (obj1.accuracy < obj2.accuracy) {
-                return NSOrderedAscending;
-            } else if (obj1.accuracy > obj2.accuracy) {
-                return NSOrderedDescending;
-            } else {
-                return NSOrderedSame;
-            }
-        
-    }];
+    NSArray<CLBeacon*> *sortedBeacons = [self sortBeaconsByAccuracy:beacons];
     
     //DEBUG BEACONS
     /*
