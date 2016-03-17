@@ -32,7 +32,7 @@
     
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
-    _locationManager.traceLog = NO;
+    _locationManager.traceLog = YES;
     [_locationManager initialiseLocationManager];
     
 }

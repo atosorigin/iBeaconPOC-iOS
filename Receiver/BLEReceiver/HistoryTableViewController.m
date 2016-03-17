@@ -10,7 +10,10 @@
 #import "HistoryTableViewCell.h"
 #import "BeaconLocationManager.h"
 
+
 @interface HistoryTableViewController ()
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
@@ -23,7 +26,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //get location list here
+    [self initializeFetchedResultsController];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,15 +36,15 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[[self fetchedResultsController] sections] count];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    //count of location list
-    
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    id< NSFetchedResultsSectionInfo> sectionInfo = [[self fetchedResultsController] sections][section];
+    return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -49,15 +52,44 @@
     //int locationNumber = indexPath.row;
     //get locationData from locationNumber here
     
+    DeviceLocation *historicalLocation = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
+
     HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
     
-    BeaconLocation location = [BeaconLocationManager getLocationForID:1];
+    BeaconLocation location = [BeaconLocationManager getLocationForID:[historicalLocation.locationId intValue]];
 
     cell.labelLocation.text = [BeaconLocationManager getLocationDescriptionForLocation:location];
-    cell.labelDate.text = @"";
+    cell.labelDate.text = historicalLocation.datetime; // TODO change to proper date
     
-    
+
     return cell;
+}
+
+#pragma mark - CoreData
+
+- (void)initializeFetchedResultsController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"DeviceLocation"];
+    
+    NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
+    
+    [request setSortDescriptors:@[dateSort]];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *moc = appDelegate.managedObjectContext;
+    
+    [self setFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:moc sectionNameKeyPath:nil cacheName:nil]];
+    
+    
+    //[[self fetchedResultsController] setDelegate:self];
+    
+    NSError *error = nil;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();
+    }
 }
 
 

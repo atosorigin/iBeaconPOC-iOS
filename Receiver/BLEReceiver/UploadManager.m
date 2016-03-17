@@ -63,8 +63,11 @@
     loc.date = date;
     
     NSError *error = nil;
+    
     if ([[self managedObjectContext] save:&error] == NO) {
         NSLog(@"Error saving context: %@\n%@", [error localizedDescription], [error userInfo]);
+    } else {
+        NSLog(@"successfully saved locally");
     }
     
 }

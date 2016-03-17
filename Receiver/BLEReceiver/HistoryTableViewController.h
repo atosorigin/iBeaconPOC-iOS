@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "AppDelegate.h"
+#import "DeviceLocation.h"
 
 @interface HistoryTableViewController : UITableViewController
 
