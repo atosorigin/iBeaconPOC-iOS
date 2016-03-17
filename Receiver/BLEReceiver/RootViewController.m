@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) BeaconLocationManager *locationManager;
 
+
 @property (weak, nonatomic) IBOutlet UIView *viewKitchen;
 @property (weak, nonatomic) IBOutlet UIView *viewReception;
 @property (weak, nonatomic) IBOutlet UIView *viewDesk;
@@ -33,6 +34,7 @@
     _locationManager.delegate = self;
     _locationManager.traceLog = NO;
     [_locationManager initialiseLocationManager];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,7 +110,7 @@
     [_viewReception setHidden:YES];
     [_viewDesk setHidden:YES];
     
-    [self uploadLocationChange:-1];
+    [self saveLocationChange:-1];
     [self speak:@"You have now left the area!"];
 }
 
@@ -119,7 +121,7 @@
     
     _labelBeaconDetails.text = [self stringFromBeacon:beacon];
     
-    [self uploadLocationChange:currentLocation];
+    [self saveLocationChange:currentLocation];
     
     NSString *speech;
     
@@ -152,15 +154,16 @@
     
 }
 
-- (void)uploadLocationChange:(NSInteger)location {
+- (void)saveLocationChange:(NSInteger)location {
     
-    [[UploadManager sharedInstance] upload:@"1234567" location:location successBlock:^{
+    [[UploadManager sharedInstance] upload:kDeviceIdentiier location:location successBlock:^{
         // could add visual indicator
     } failedBlock:^(NSError *error) {
         NSLog(@"Failed to upload %@", error);
     }];
     
 }
+
 
 - (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
     

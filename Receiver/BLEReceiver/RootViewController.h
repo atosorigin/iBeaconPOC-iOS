@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BeaconLocationManager.h"
 #import "UploadManager.h"
+#import "AppDelegate.h"
 
+#define kDeviceIdentiier @"123456789"
 
 @interface RootViewController : UIViewController<BeaconLocationManagerDelegate>
 

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import "ISO8601.h"
+#import "DeviceLocation.h"
+#import <CoreData/CoreData.h>
 
 
 typedef void (^UploadSuccessBlock) ();
@@ -22,5 +24,7 @@ typedef void (^UploadFailedBlock) (NSError *error);
 
 - (void)upload:(NSString*)deviceId location:(NSInteger)locationId
     successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
