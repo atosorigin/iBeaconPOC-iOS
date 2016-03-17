@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nmq-mW-Cmy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nmq-mW-Cmy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -10,6 +10,7 @@
         <scene sceneID="88o-E0-Gfi">
             <objects>
                 <tabBarController id="Nmq-mW-Cmy" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pcp-3K-eb2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -299,19 +300,33 @@ Reception</string>
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Kitchen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36z-je-QcX">
-                                            <rect key="frame" x="8" y="11" width="260" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kitchen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="36z-je-QcX">
+                                            <rect key="frame" x="8" y="11" width="150" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="Aw6-gd-2G5"/>
+                                                <constraint firstAttribute="height" constant="21" id="dks-40-n9a"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date/Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Mb-wTR">
-                                            <rect key="frame" x="372" y="11" width="220" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date/Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-Mb-wTR">
+                                            <rect key="frame" x="392" y="11" width="200" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="qXw-eK-CpI"/>
+                                                <constraint firstAttribute="width" constant="200" id="yzQ-4D-0e5"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="36z-je-QcX" firstAttribute="centerY" secondItem="GMr-Ue-zDQ" secondAttribute="centerY" id="9YT-1F-Xej"/>
+                                        <constraint firstItem="36z-je-QcX" firstAttribute="leading" secondItem="GMr-Ue-zDQ" secondAttribute="leadingMargin" id="c8K-Ud-QJU"/>
+                                        <constraint firstItem="YBO-Mb-wTR" firstAttribute="trailing" secondItem="GMr-Ue-zDQ" secondAttribute="trailingMargin" id="dsz-hX-BDh"/>
+                                        <constraint firstItem="YBO-Mb-wTR" firstAttribute="centerY" secondItem="GMr-Ue-zDQ" secondAttribute="centerY" id="syQ-Sa-DIT"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="labelDate" destination="YBO-Mb-wTR" id="7KE-pt-Y18"/>
@@ -324,6 +339,7 @@ Reception</string>
                             <outlet property="delegate" destination="NAQ-9p-PRG" id="ymd-SA-yvp"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="History" id="3Vt-M3-ZYa"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Slx-dO-Qex" userLabel="First Responder" sceneMemberID="firstResponder"/>

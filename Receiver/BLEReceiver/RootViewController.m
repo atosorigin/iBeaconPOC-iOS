@@ -81,6 +81,16 @@
     [synth speakUtterance:utterance];
 }
 
+- (void)configureUINoBeacons {
+    
+    [_labelBeaconDetails setHidden:YES];
+    [_labelStatus setHidden:YES];
+    
+    [_viewKitchen setHidden:YES];
+    [_viewReception setHidden:YES];
+    [_viewDesk setHidden:YES];
+}
+
 #pragma mark BeaconLocationManagerDelegate
 
 - (void)beaconManagerAuthorisationToContinue {
@@ -98,17 +108,12 @@
 
 - (void)beaconManagerStoppedMonitoring {
     [_labelScanning setHidden:YES];
-    [self beaconManagerDetectedNoBeacons];
+    [self configureUINoBeacons];
 }
 
 - (void)beaconManagerDetectedNoBeacons {
     
-    [_labelBeaconDetails setHidden:YES];
-    [_labelStatus setHidden:YES];
-    
-    [_viewKitchen setHidden:YES];
-    [_viewReception setHidden:YES];
-    [_viewDesk setHidden:YES];
+    [self configureUINoBeacons];
     
     [self saveLocationChange:-1];
     [self speak:@"You have now left the area!"];

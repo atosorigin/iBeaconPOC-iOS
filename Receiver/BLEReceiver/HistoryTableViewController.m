@@ -49,9 +49,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //int locationNumber = indexPath.row;
-    //get locationData from locationNumber here
-    
     DeviceLocation *historicalLocation = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
 

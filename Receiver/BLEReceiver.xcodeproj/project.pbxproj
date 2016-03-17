@@ -103,6 +103,17 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		A52191031C9AD1BD004DEC81 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A52190F91C9869CE004DEC81 /* BeaconLocationManager.h */,
+				A52190FA1C9869CE004DEC81 /* BeaconLocationManager.m */,
+				FDD9CBF51C997841009AFFDD /* UploadManager.h */,
+				FDD9CBF61C997842009AFFDD /* UploadManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		A5ED11911C8F0B5E00108EC7 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +140,7 @@
 			children = (
 				A52190FC1C9ABFBF004DEC81 /* UI */,
 				FDF8EE411C9ABCDD00434AD5 /* CoreData */,
+				A52191031C9AD1BD004DEC81 /* Managers */,
 				A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */,
 				A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */,
 				A5ED11A31C8F0B5E00108EC7 /* RootViewController.h */,
@@ -140,10 +152,6 @@
 				A5ED11B11C8F0B5E00108EC7 /* LaunchScreen.storyboard */,
 				A5ED11B41C8F0B5E00108EC7 /* Info.plist */,
 				A5ED119D1C8F0B5E00108EC7 /* Supporting Files */,
-				A52190F91C9869CE004DEC81 /* BeaconLocationManager.h */,
-				A52190FA1C9869CE004DEC81 /* BeaconLocationManager.m */,
-				FDD9CBF51C997841009AFFDD /* UploadManager.h */,
-				FDD9CBF61C997842009AFFDD /* UploadManager.m */,
 			);
 			path = BLEReceiver;
 			sourceTree = "<group>";
