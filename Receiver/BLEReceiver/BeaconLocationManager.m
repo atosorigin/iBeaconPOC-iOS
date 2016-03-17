@@ -35,7 +35,7 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         [self clearLatestBeacon];
         
         _hasAuthorisation = NO;
-        _dropoutThreshold = 2;
+        _dropoutThreshold = 3;
         
         _traceLog = YES;
         _numConsecutiveBeaconDropouts = 0;
@@ -226,12 +226,6 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
     //sort the beacons by Proximity then Accuracy (Nearest to Furthest)
     NSArray<CLBeacon*> *sortedBeacons = [beacons sortedArrayUsingComparator:^NSComparisonResult(CLBeacon *obj1, CLBeacon* obj2) {
-
-        if (obj1.proximity < obj2.proximity) {
-            return NSOrderedAscending;
-        } else if (obj1.proximity > obj2.proximity) {
-            return NSOrderedDescending;
-        } else {
             
             if (obj1.accuracy < obj2.accuracy) {
                 return NSOrderedAscending;
@@ -240,9 +234,18 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
             } else {
                 return NSOrderedSame;
             }
-            
-        }
+        
     }];
+    
+    //DEBUG BEACONS
+    /*
+    int i = 0;
+    for (CLBeacon *beacon in sortedBeacons) {
+        NSLog(@"DEBUG - beacon[%d] has max[%d] and accuracy[%f] and rssi[%ld]", i, [beacon.major intValue], beacon.accuracy, beacon.rssi);
+        i++;
+    }
+     */
+    //END DEBUG BEACONS
     
     CLBeacon *nearestBeacon = nil;
     BOOL nearestBeaconDidDropout = false;
