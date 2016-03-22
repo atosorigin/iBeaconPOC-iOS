@@ -33,8 +33,11 @@
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.traceLog = YES;
-    [_locationManager initialiseLocationManager];
     
+    // Save initial 'Out of area state'
+    [self saveLocationChange:BeaconLocationNone];
+    
+    [_locationManager initialiseLocationManager];
     [_locationManager startMonitoring];
 }
 
