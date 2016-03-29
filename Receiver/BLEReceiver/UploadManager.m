@@ -82,9 +82,9 @@
 
 - (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure {
     
-    NSDictionary *data = @{email : email, username: username};
+    NSDictionary *data = @{@"email" : email, @"username": username};
     
-    _userIdentifier = username;
+    _userIdentifier = email;
     
     [self POST:@"/api/register" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success();
