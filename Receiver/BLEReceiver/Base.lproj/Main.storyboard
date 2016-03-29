@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nmq-mW-Cmy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PZV-Lh-XdE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -25,6 +25,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYx-sr-K4N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2293" y="-630"/>
+        </scene>
+        <!--Register Controller-->
+        <scene sceneID="Zwl-zm-U4d">
+            <objects>
+                <viewController title="Register Controller" id="PZV-Lh-XdE" userLabel="Register Controller" customClass="RegisterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jtN-AW-uvt"/>
+                        <viewControllerLayoutGuide type="bottom" id="acF-KN-ex0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mun-vz-0sj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Mo-yz-j9K">
+                                <rect key="frame" x="96" y="150" width="215" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="MJ8-fJ-DBC"/>
+                                    <constraint firstAttribute="width" constant="215" id="vxm-GG-Qzd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JV-bD-ojE">
+                                <rect key="frame" x="20" y="154" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvQ-MX-Q2c">
+                                <rect key="frame" x="20" y="207" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdW-i0-qpC">
+                                <rect key="frame" x="272" y="380" width="57" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="0MD-lx-SVv"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="3dN-DM-AD9"/>
+                                    <constraint firstAttribute="height" constant="30" id="7hO-H3-erN"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="57" id="DCZ-TG-vuh"/>
+                                </constraints>
+                                <state key="normal" title="Register"/>
+                                <connections>
+                                    <action selector="registerPressed:" destination="PZV-Lh-XdE" eventType="touchUpInside" id="5HB-zQ-wqP"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rGb-0M-Nfj">
+                                <rect key="frame" x="96" y="203" width="215" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="215" id="C2j-6q-zuq"/>
+                                    <constraint firstAttribute="height" constant="30" id="CnR-yV-Eox"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Mo-yz-j9K" firstAttribute="top" secondItem="jtN-AW-uvt" secondAttribute="bottom" constant="130" id="9Yo-Q6-CGc"/>
+                            <constraint firstItem="YdW-i0-qpC" firstAttribute="top" secondItem="rGb-0M-Nfj" secondAttribute="bottom" constant="147" id="BRC-hA-P9u"/>
+                            <constraint firstItem="9Mo-yz-j9K" firstAttribute="leading" secondItem="8JV-bD-ojE" secondAttribute="trailing" constant="35" id="Kq2-Pt-1WT"/>
+                            <constraint firstItem="rGb-0M-Nfj" firstAttribute="top" secondItem="9Mo-yz-j9K" secondAttribute="bottom" constant="23" id="NBp-EW-SRM"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="fvQ-MX-Q2c" secondAttribute="leading" id="PI0-PK-OTN"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="8JV-bD-ojE" secondAttribute="leading" id="RLe-UG-c1M"/>
+                            <constraint firstItem="rGb-0M-Nfj" firstAttribute="leading" secondItem="fvQ-MX-Q2c" secondAttribute="trailing" constant="31" id="ajI-Sk-YcF"/>
+                            <constraint firstItem="YdW-i0-qpC" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="hAE-hr-QzE"/>
+                            <constraint firstItem="fvQ-MX-Q2c" firstAttribute="top" secondItem="8JV-bD-ojE" secondAttribute="bottom" constant="32" id="kTM-NZ-sff"/>
+                            <constraint firstItem="8JV-bD-ojE" firstAttribute="top" secondItem="jtN-AW-uvt" secondAttribute="bottom" constant="134" id="mFp-Ql-Yeb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="9Mo-yz-j9K" id="0gY-v7-i9O"/>
+                        <outlet property="usernameTextField" destination="rGb-0M-Nfj" id="yw3-oK-fun"/>
+                        <segue destination="Nmq-mW-Cmy" kind="showDetail" identifier="register" action="showViewController:sender:" id="0fl-RX-qqs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lj-q3-zlA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3074" y="-630"/>
         </scene>
         <!--Map-->
         <scene sceneID="clB-vc-fyl">
