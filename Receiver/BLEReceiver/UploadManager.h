@@ -16,15 +16,21 @@
 typedef void (^UploadSuccessBlock) ();
 typedef void (^UploadFailedBlock) (NSError *error);
 
+typedef void (^RegisterSuccessBlock) ();
+typedef void (^RegisterFailedBlock) (NSError *error);
+
 #define kBaseURL @"http://development-visitorpal.rhcloud.com"
 
 @interface UploadManager : AFHTTPSessionManager
 
 + (id)sharedInstance;
 
-- (void)upload:(NSString*)deviceId location:(NSInteger)locationId
+- (void)upload:(NSInteger)locationId
     successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
 
+- (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure;
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 
 @end

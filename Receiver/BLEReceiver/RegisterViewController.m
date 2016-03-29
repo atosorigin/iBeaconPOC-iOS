@@ -23,7 +23,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self prepopulateFields];
 }
+
+- (void)prepopulateFields {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *savedEmail = [defaults stringForKey:kSavedEmailKey];
+    NSString *savedUsername = [defaults stringForKey:kSavedUsernameKey];
+    
+    if (savedEmail != nil && [savedEmail length] > 0) {
+        _emailTextField.text = savedEmail;
+    }
+    
+    if (savedUsername != nil && [savedUsername length] > 0) {
+        _usernameTextField.text = savedUsername;
+    }
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -42,7 +60,40 @@
 
 - (IBAction)registerPressed:(id)sender {
     
-    [self performSegueWithIdentifier:@"register" sender:nil];
+    [self registerUser];
+    
+}
+
+- (void)registerUser {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *email = _emailTextField.text;
+    NSString *username = _usernameTextField.text;
+    
+    //post to URL to register this device but also save the last user to userdefaults
+    [[UploadManager sharedInstance] registerUserWithEmail:email username:username success:^{
+        NSLog(@"user is registered");
+        
+        [defaults setObject:email forKey:kSavedEmailKey];
+        [defaults setObject:username forKey:kSavedUsernameKey];
+        
+        [defaults synchronize];
+        [self performSegueWithIdentifier:@"register" sender:nil];
+    } failure:^(NSError *error) {
+        NSLog(@"registration failed %@", error);
+       
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:@"Failed to register device."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {}];
+        
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    }];
+    
 }
 
 

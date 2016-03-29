@@ -168,7 +168,7 @@
 
 - (void)saveLocationChange:(NSInteger)location {
     
-    [[UploadManager sharedInstance] upload:kDeviceIdentiier location:location successBlock:^{
+    [[UploadManager sharedInstance] upload:location successBlock:^{
         // could add visual indicator
     } failedBlock:^(NSError *error) {
         NSLog(@"Failed to upload %@", error);

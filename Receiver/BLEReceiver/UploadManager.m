@@ -8,9 +8,17 @@
 
 #import "UploadManager.h"
 
+
+@interface UploadManager()
+
+@property (strong, nonatomic) NSString *userIdentifier;
+
+@end
+
 @implementation UploadManager {
     
 }
+
 
 - (instancetype)init {
     self = [super initWithBaseURL:[NSURL URLWithString:kBaseURL]];
@@ -33,17 +41,17 @@
     return sharedInstance;
 }
 
-- (void)upload:(NSString*)deviceId location:(NSInteger)locationId successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed {
+- (void)upload:(NSInteger)locationId successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed {
     
     NSDate *now = [NSDate date];
     NSString *nowString = [now ISO8601String];
     
-    NSDictionary *json = @{@"deviceId" : deviceId, @"locationId" : [NSString stringWithFormat:@"%li", (long)locationId],
+    NSDictionary *json = @{@"deviceId" : _userIdentifier, @"locationId" : [NSString stringWithFormat:@"%li", (long)locationId],
                            @"datetime" :nowString};
                                                     
     NSArray *data = @[json];
     
-    [self saveLocally:deviceId location:locationId date:now dateString:nowString];
+    [self saveLocally:_userIdentifier location:locationId date:now dateString:nowString];
     
     [self POST:@"/api/deviceLocation" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success();
@@ -69,6 +77,20 @@
     } else {
         NSLog(@"successfully saved locally");
     }
+    
+}
+
+- (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure {
+    
+    NSDictionary *data = @{email : email, username: username};
+    
+    _userIdentifier = username;
+    
+    [self POST:@"/api/register" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success();
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
     
 }
 
