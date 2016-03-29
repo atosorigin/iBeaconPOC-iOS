@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PZV-Lh-XdE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PZV-Lh-XdE">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -293,6 +293,13 @@ Reception</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="compass" translatesAutoresizingMaskIntoConstraints="NO" id="8qO-7T-RIh">
+                                <rect key="frame" x="500" y="461" width="70" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="R0w-XV-Ue0"/>
+                                    <constraint firstAttribute="height" constant="70" id="TnQ-r5-6EN"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -321,9 +328,11 @@ Reception</string>
                             <constraint firstItem="Cj4-aa-j2p" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="39" id="hsH-Tf-Kii"/>
                             <constraint firstItem="2Wx-g1-TdY" firstAttribute="trailing" secondItem="502-Ir-ELC" secondAttribute="trailingMargin" id="nYP-3z-TpN"/>
                             <constraint firstItem="MBo-7V-k6d" firstAttribute="trailing" secondItem="502-Ir-ELC" secondAttribute="trailingMargin" id="oQA-Xe-3PQ"/>
+                            <constraint firstItem="IfR-02-kHw" firstAttribute="top" secondItem="8qO-7T-RIh" secondAttribute="bottom" constant="20" id="qss-c4-V4P"/>
                             <constraint firstItem="Cj4-aa-j2p" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" constant="39" id="sal-lw-TXo"/>
                             <constraint firstItem="K2z-ui-toU" firstAttribute="top" secondItem="Cj4-aa-j2p" secondAttribute="bottom" constant="108" id="sxd-ys-kMD"/>
                             <constraint firstItem="Cj4-aa-j2p" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" id="wR6-TM-GzM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8qO-7T-RIh" secondAttribute="trailing" constant="10" id="xxi-0v-wa7"/>
                             <constraint firstItem="wcx-Ja-gEY" firstAttribute="leading" secondItem="502-Ir-ELC" secondAttribute="leadingMargin" id="yHh-FZ-qz8"/>
                             <constraint firstItem="K2z-ui-toU" firstAttribute="top" secondItem="Cj4-aa-j2p" secondAttribute="bottom" constant="129" id="yd1-Uz-sTg"/>
                             <constraint firstItem="2Wx-g1-TdY" firstAttribute="top" secondItem="I7W-xW-C47" secondAttribute="bottom" constant="20" id="yiA-US-Fg7"/>
@@ -352,6 +361,7 @@ Reception</string>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="Zjq-Mf-HSM"/>
                     <connections>
+                        <outlet property="imgCompass" destination="8qO-7T-RIh" id="UHV-Iu-EIZ"/>
                         <outlet property="labelBeaconDetails" destination="MBo-7V-k6d" id="SLO-xH-ahE"/>
                         <outlet property="labelScanning" destination="mEn-qd-zwT" id="qkl-hl-nTb"/>
                         <outlet property="labelStatus" destination="2Wx-g1-TdY" id="kDS-sQ-wEv"/>
@@ -444,5 +454,6 @@ Reception</string>
     </scenes>
     <resources>
         <image name="BluePrint" width="605" height="584"/>
+        <image name="compass" width="83" height="83"/>
     </resources>
 </document>

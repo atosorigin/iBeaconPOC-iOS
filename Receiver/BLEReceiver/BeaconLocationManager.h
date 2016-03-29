@@ -51,4 +51,6 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 - (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon;
 - (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon;
 
+- (void)beaconManagerChangedHeading:(CLHeading*)newHeading;
+
 @end

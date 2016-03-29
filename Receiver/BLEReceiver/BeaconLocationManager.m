@@ -126,8 +126,9 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
     if (_hasAuthorisation) {
         
-        NSLog(@"Location Manager - starting monitoring for region[%@]", _beaconRegion);
+        NSLog(@"Location Manager - starting monitoring for region[%@] and updating heading", _beaconRegion);
         
+        [_locationManager startUpdatingHeading];
         [_locationManager startRangingBeaconsInRegion:_beaconRegion];
         [_delegate beaconManagerStartedMonitoring];
     }
@@ -136,8 +137,9 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 
 - (void)stopMonitoring {
     
-    NSLog(@"Location Manager - stopping monitoring for region[%@]", _beaconRegion);
+    NSLog(@"Location Manager - stopping monitoring for region[%@] and stop updating heading", _beaconRegion);
     
+    [_locationManager stopUpdatingHeading];
     [_locationManager stopRangingBeaconsInRegion:_beaconRegion];
     [_delegate beaconManagerStoppedMonitoring];
 }
@@ -239,6 +241,11 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 }
 
 #pragma mark LocationManager Delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
+    
+    [_delegate beaconManagerChangedHeading:newHeading];
+}
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     

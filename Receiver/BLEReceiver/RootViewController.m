@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelStatus;
 @property (weak, nonatomic) IBOutlet UILabel *labelScanning;
 @property (weak, nonatomic) IBOutlet UILabel *labelBeaconDetails;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
 
 @end
 
@@ -29,6 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGAffineTransform compassTransform = CGAffineTransformMakeRotation(0);
+    [_imgCompass setTransform:compassTransform];
     
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
@@ -178,5 +182,11 @@
     _labelBeaconDetails.text = [self stringFromBeacon:beacon];
 }
 
+- (void)beaconManagerChangedHeading:(CLHeading *)newHeading {
+    
+    double radians = (newHeading.trueHeading * M_PI) / 180;
+    CGAffineTransform compassTransform = CGAffineTransformMakeRotation(-1 * radians);
+    [_imgCompass setTransform:compassTransform];
+}
 
 @end
