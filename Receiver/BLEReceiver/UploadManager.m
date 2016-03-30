@@ -12,6 +12,7 @@
 @interface UploadManager()
 
 @property (strong, nonatomic) NSString *userIdentifier;
+@property (strong, nonatomic) NSArray *locations;
 
 @end
 
@@ -46,7 +47,7 @@
     NSDate *now = [NSDate date];
     NSString *nowString = [now ISO8601String];
     
-    NSDictionary *json = @{@"deviceId" : _userIdentifier, @"locationId" : [NSString stringWithFormat:@"%li", (long)locationId],
+    NSDictionary *json = @{@"deviceId" : _userIdentifier, @"locationId" :@(locationId),
                            @"datetime" :nowString};
                                                     
     NSArray *data = @[json];
@@ -87,11 +88,29 @@
     _userIdentifier = email;
     
     [self POST:@"/api/register" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"response from reg = %@", responseObject);
+        
+        _locations = responseObject;
         success();
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
     
+}
+
+- (NSDictionary*)locationDataForId:(NSInteger)locationId {
+    
+    NSDictionary *result = nil;
+    
+    for (NSDictionary *loc in _locations) {
+        if ([loc[@"locationId"] isEqual:@(locationId)]) {
+            result = loc;
+            break;
+        }
+    }
+    
+    return result;
 }
 
 @end

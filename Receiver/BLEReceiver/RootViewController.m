@@ -137,28 +137,36 @@
     
     NSString *speech;
     
+    NSDictionary *locationData = [[UploadManager sharedInstance] locationDataForId:currentLocation];
+    
+    NSLog(@"found locationData %@", locationData);
+    
+    if (locationData != nil) {
+        speech = [NSString stringWithFormat:@"You are now in the %@", locationData[@"description"]];
+    }
+    
     switch (currentLocation) {
         case BeaconLocationKitchen:
             [_viewKitchen setHidden:NO];
             [_viewReception setHidden:YES];
             [_viewDesk setHidden:YES];
-            speech = @"You Are Now In The Kitchen";
+            //speech = @"You Are Now In The Kitchen";
             break;
         case BeaconLocationReception:
             [_viewKitchen setHidden:YES];
             [_viewReception setHidden:NO];
             [_viewDesk setHidden:YES];
-            speech = @"You Are Now In The Reception";
+            //speech = @"You Are Now In The Reception";
             break;
         case BeaconLocationDesk:
             [_viewKitchen setHidden:YES];
             [_viewReception setHidden:YES];
             [_viewDesk setHidden:NO];
-            speech = @"You Are Now At Our Desks";
+            //speech = @"You Are Now At Our Desks";
             break;
         case BeaconLocationNone:
         default:
-            speech = @"You're Lost!";
+            //speech = @"You're Lost!";
             break;
     }
     

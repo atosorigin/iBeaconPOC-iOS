@@ -30,6 +30,8 @@ typedef void (^RegisterFailedBlock) (NSError *error);
 
 - (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure;
 
+- (NSDictionary*)locationDataForId:(NSInteger)locationId;
+
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
