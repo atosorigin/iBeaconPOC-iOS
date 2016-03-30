@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelBeaconDetails;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelCurrentLocation;
 @end
 
 @implementation RootViewController {
@@ -142,7 +143,10 @@
     NSLog(@"found locationData %@", locationData);
     
     if (locationData != nil) {
-        speech = [NSString stringWithFormat:@"You are now in the %@", locationData[@"description"]];
+        speech = [NSString stringWithFormat:@"You are now at the %@", locationData[@"description"]];
+        _labelCurrentLocation.text = locationData[@"description"];
+    } else {
+        _labelCurrentLocation.text = @"";
     }
     
     switch (currentLocation) {
