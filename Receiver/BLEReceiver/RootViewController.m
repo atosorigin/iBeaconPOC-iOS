@@ -143,7 +143,7 @@
     NSLog(@"found locationData %@", locationData);
     
     if (locationData != nil) {
-        speech = [NSString stringWithFormat:@"You are now at the %@", locationData[@"description"]];
+        speech = locationData[@"audio"];//[NSString stringWithFormat:@"You are now at the %@", locationData[@"description"]];
         _labelCurrentLocation.text = locationData[@"description"];
     } else {
         _labelCurrentLocation.text = @"";
@@ -154,19 +154,16 @@
             [_viewKitchen setHidden:NO];
             [_viewReception setHidden:YES];
             [_viewDesk setHidden:YES];
-            //speech = @"You Are Now In The Kitchen";
             break;
         case BeaconLocationReception:
             [_viewKitchen setHidden:YES];
             [_viewReception setHidden:NO];
             [_viewDesk setHidden:YES];
-            //speech = @"You Are Now In The Reception";
             break;
         case BeaconLocationDesk:
             [_viewKitchen setHidden:YES];
             [_viewReception setHidden:YES];
             [_viewDesk setHidden:NO];
-            //speech = @"You Are Now At Our Desks";
             break;
         case BeaconLocationNone:
         default:
