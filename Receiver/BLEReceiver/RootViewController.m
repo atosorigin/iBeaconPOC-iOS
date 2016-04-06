@@ -9,6 +9,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "RootViewController.h"
 #import "UploadManager.h"
+#import "HighlightableCellGrid.h"
 
 @interface RootViewController ()
 
@@ -16,9 +17,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMap;
-@property (weak, nonatomic) IBOutlet UIView *viewGridContainer;
+@property (weak, nonatomic) IBOutlet HighlightableCellGrid *viewGridContainer;
 
-@property (weak, nonatomic) IBOutlet UILabel *labelCurrentLocation;
 @end
 
 @implementation RootViewController {
@@ -28,20 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //set the compass up
     CGAffineTransform compassTransform = CGAffineTransformMakeRotation(0);
     [_imgCompass setTransform:compassTransform];
     
-    [self configureBeaconMap];
+    //load the beacon map image into the view
+    [_imgMap setImage:[[UploadManager sharedInstance] getLocationMap]];
     
+    //create the location manager
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.traceLog = YES;
     
-    // Save initial 'Out of area state'
+    //save initial 'Out of area' state
     [self saveLocationChange:BeaconLocationNone];
     
+    //start!
     [_locationManager initialiseLocationManager];
-    //[_locationManager startMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,14 +55,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     
     //[_locationManager stopMonitoring];
-}
-
-- (void)configureBeaconMap {
-    
-    [_imgMap setImage:[[UploadManager sharedInstance] getLocationMap]];
-    
-    //with the viewGridContainer, programmatically add stackview of views 5x5
-
 }
 
 - (NSString*)stringFromBeacon:(CLBeacon*)beacon {
@@ -96,18 +91,6 @@
     [synth speakUtterance:utterance];
 }
 
-- (void)configureUINoBeacons {
-    
-    /*
-    [_labelBeaconDetails setHidden:YES];
-    [_labelStatus setHidden:YES];
-    
-    [_viewKitchen setHidden:YES];
-    [_viewReception setHidden:YES];
-    [_viewDesk setHidden:YES];
-     */
-}
-
 #pragma mark BeaconLocationManagerDelegate
 
 - (void)beaconManagerAuthorisationToContinue {
@@ -129,9 +112,8 @@
 
 - (void)beaconManagerDetectedNoBeacons {
     
-    [self configureUINoBeacons];
-    
     [self saveLocationChange:BeaconLocationNone];
+    [_viewGridContainer exclusiveHighlightCellX:-1 andCellY:-1];
     [self speak:@"You have now left the area!"];
 }
 
@@ -151,33 +133,18 @@
     NSLog(@"found locationData %@", locationData);
     
     if (locationData != nil) {
-        speech = locationData[@"audio"];//[NSString stringWithFormat:@"You are now at the %@", locationData[@"description"]];
-        _labelCurrentLocation.text = locationData[@"description"];
+        speech = locationData[@"audio"];
+        
+        NSNumber *xRef = locationData[@"xRef"];
+        NSNumber *yRef = locationData[@"yRef"];
+        
+        [_viewGridContainer exclusiveHighlightCellX:[xRef intValue] andCellY:[yRef intValue]];
+        
+        //_labelCurrentLocation.text = locationData[@"description"];
     } else {
-        _labelCurrentLocation.text = @"";
+        //_labelCurrentLocation.text = @"";
     }
     
-    switch (currentLocation) {
-        case BeaconLocationKitchen:
-            //[_viewKitchen setHidden:NO];
-            //[_viewReception setHidden:YES];
-            //[_viewDesk setHidden:YES];
-            break;
-        case BeaconLocationReception:
-            //[_viewKitchen setHidden:YES];
-            //[_viewReception setHidden:NO];
-            //[_viewDesk setHidden:YES];
-            break;
-        case BeaconLocationDesk:
-            //[_viewKitchen setHidden:YES];
-            //[_viewReception setHidden:YES];
-            //[_viewDesk setHidden:NO];
-            break;
-        case BeaconLocationNone:
-        default:
-            //speech = @"You're Lost!";
-            break;
-    }
     
     [self speak:speech];
     

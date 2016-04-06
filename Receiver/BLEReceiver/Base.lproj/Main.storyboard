@@ -157,9 +157,8 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2az-Ce-cGS">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2az-Ce-cGS" customClass="HighlightableCellGrid">
                                         <rect key="frame" x="105" y="0.0" width="350" height="350"/>
-                                        <color key="backgroundColor" red="0.31138867139816284" green="0.99512380361557007" blue="0.012188149616122246" alpha="0.20469874100719423" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.7762050653" blue="0.91652539489999996" alpha="1" colorSpace="calibratedRGB"/>

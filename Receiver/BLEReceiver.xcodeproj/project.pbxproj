@@ -11,6 +11,7 @@
 		A52190FB1C9869CE004DEC81 /* BeaconLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190FA1C9869CE004DEC81 /* BeaconLocationManager.m */; };
 		A52190FF1C9ABFE7004DEC81 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */; };
 		A52191021C9AC0E2004DEC81 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52191011C9AC0E2004DEC81 /* HistoryViewController.m */; };
+		A54883A01CB5467400659468 /* HighlightableCellGrid.m in Sources */ = {isa = PBXBuildFile; fileRef = A548839F1CB5467400659468 /* HighlightableCellGrid.m */; };
 		A5ED119F1C8F0B5E00108EC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED119E1C8F0B5E00108EC7 /* main.m */; };
 		A5ED11A21C8F0B5E00108EC7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */; };
 		A5ED11A51C8F0B5E00108EC7 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ED11A41C8F0B5E00108EC7 /* RootViewController.m */; };
@@ -38,6 +39,8 @@
 		A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
 		A52191001C9AC0E2004DEC81 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		A52191011C9AC0E2004DEC81 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		A548839E1CB5467400659468 /* HighlightableCellGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightableCellGrid.h; sourceTree = "<group>"; };
+		A548839F1CB5467400659468 /* HighlightableCellGrid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightableCellGrid.m; sourceTree = "<group>"; };
 		A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED119E1C8F0B5E00108EC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 			children = (
 				A52190FD1C9ABFE7004DEC81 /* HistoryTableViewCell.h */,
 				A52190FE1C9ABFE7004DEC81 /* HistoryTableViewCell.m */,
+				A548839E1CB5467400659468 /* HighlightableCellGrid.h */,
+				A548839F1CB5467400659468 /* HighlightableCellGrid.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				A52190FF1C9ABFE7004DEC81 /* HistoryTableViewCell.m in Sources */,
 				A52190FB1C9869CE004DEC81 /* BeaconLocationManager.m in Sources */,
 				FDF8EE4A1C9ABF4500434AD5 /* DeviceLocation.m in Sources */,
+				A54883A01CB5467400659468 /* HighlightableCellGrid.m in Sources */,
 				FDF8EE441C9ABD3E00434AD5 /* BLEReceiver.xcdatamodeld in Sources */,
 				FDD9CBF71C997842009AFFDD /* UploadManager.m in Sources */,
 				A5ED11A51C8F0B5E00108EC7 /* RootViewController.m in Sources */,
