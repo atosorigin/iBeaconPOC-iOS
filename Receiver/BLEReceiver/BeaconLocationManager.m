@@ -13,8 +13,11 @@
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
-@property (nonatomic) int numConsecutiveBeaconDropouts;
+@property (strong, nonatomic) NSArray *locationData;
+@property (strong, nonatomic) NSString *atosUUID;
+@property (strong, nonatomic) NSString *atosID;
 
+@property (nonatomic) int numConsecutiveBeaconDropouts;
 @property (nonatomic) BOOL hasAuthorisation;
 
 @end
@@ -23,30 +26,8 @@
     
 }
 
-static NSString *const atosBeaconUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
-static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
-
-+ (BeaconLocation)getLocationForID:(int)locationId {
-    
-    return (BeaconLocation)locationId;
-}
-
-+ (NSString*)getLocationDescriptionForLocation:(BeaconLocation)location {
-    
-    switch (location) {
-        case BeaconLocationKitchen:
-            return @"Kitchen";
-        case BeaconLocationReception:
-            return @"Reception";
-        case BeaconLocationDesk:
-            return @"Desk";
-        case BeaconLocationNone:
-            return @"Outside Region";
-        default:
-            return @"Invalid Location";
-    }
-    
-}
+//static NSString *const atosBeaconUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
+//static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 
 - (id)init {
     
@@ -73,9 +54,16 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     
 }
 
-- (void)initialiseLocationManager {
+#pragma mark Initialisation
+
+- (void)initialiseLocationManagerWithLocations:(NSArray*)locations {
     
     NSLog(@"Location Manager - initialising");
+    
+    _currentLocationId = BEACON_NONE;
+    _locationData = locations;
+    
+    [self initFromLocationData];
     
     [self initBeaconRegion];
     [self initLocationManager];
@@ -83,13 +71,25 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     [_locationManager requestWhenInUseAuthorization];
 }
 
+- (void)initFromLocationData {
+    
+    assert([_locationData count] > 0);
+    
+    //assume that all the locations have the same UUID, AtosID
+    NSDictionary *location = [_locationData firstObject];
+    
+    _atosUUID = location[@"uuid"];
+    _atosID = location[@"refId"];
+    
+}
+
 - (void)initBeaconRegion {
     
-    NSLog(@"Location Manager - creating beacon region for uuid [%@] and id [%@]", atosBeaconUUID, atosBeaconId);
+    NSLog(@"Location Manager - creating beacon region for uuid [%@] and id [%@]", _atosUUID, _atosID);
     
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:atosBeaconUUID];
+    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:_atosUUID];
     
-    _beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:atosBeaconId];
+    _beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:_atosID];
     
     _beaconRegion.notifyEntryStateOnDisplay = YES;
     _beaconRegion.notifyOnEntry = YES;
@@ -122,6 +122,8 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
 
 }
 
+#pragma mark Commands
+
 - (void)startMonitoring {
     
     if (_hasAuthorisation) {
@@ -144,10 +146,43 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
     [_delegate beaconManagerStoppedMonitoring];
 }
 
+#pragma mark LocationData Handlers
+
+- (BOOL)validateBeaconValueIsValidLocation:(int)beaconValue {
+    
+    BOOL matchedLocationId = false;
+    
+    //check to see whether the beaconId is in our expected list of locations
+    for (NSDictionary *loc in _locationData) {
+        if ([loc[@"locationId"] isEqual:@(beaconValue)]) {
+            matchedLocationId = true;
+            break;
+        }
+    }
+    
+    return matchedLocationId;
+}
+
+- (NSDictionary*)locationDataForId:(NSInteger)locationId {
+    
+    NSDictionary *result = nil;
+    
+    for (NSDictionary *loc in _locationData) {
+        if ([loc[@"locationId"] isEqual:@(locationId)]) {
+            result = loc;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+#pragma mark Utility
+
 - (void)clearLatestBeacon {
     
     _currentBeacon = nil;
-    _currentLocation = BeaconLocationNone;
+    _currentLocationId = BEACON_NONE;
 }
 
 - (BOOL)beacon:(CLBeacon*)beacon1 isEquivalentToBeacon:(CLBeacon*)beacon2 {
@@ -175,46 +210,33 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         newBeacon = true;
         
         //map the beacon to a new region
-        _currentLocation = [self getNewLocationFromCurrentBeacon];
+        _currentLocationId = [self getNewLocationFromCurrentBeacon];
         
         //if we've got a beacon we're not expecting, we should reset and de-range
-        if (_currentLocation == BeaconLocationNone) {
+        if (_currentLocationId == BEACON_NONE) {
             
             [self logIfTracing:[NSString stringWithFormat:@"nearest beacon is now an invalid beacon"]];
             [self clearLatestBeacon];
             
         } else {
             
-            [self logIfTracing:[NSString stringWithFormat:@"nearest beacon is now at location [%ld]", (long)_currentLocation]];
+            [self logIfTracing:[NSString stringWithFormat:@"nearest beacon is now at location [%d]", _currentLocationId]];
         }
     }
     
     return newBeacon;
 }
 
-- (BeaconLocation)getNewLocationFromCurrentBeacon {
+- (int)getNewLocationFromCurrentBeacon {
     
-    BeaconLocation newLocation = BeaconLocationNone;
+    int newLocation = BEACON_NONE;
     
-    if ([[_currentBeacon.proximityUUID UUIDString] isEqualToString:atosBeaconUUID]) {
+    if ([[_currentBeacon.proximityUUID UUIDString] isEqualToString:_atosUUID]) {
+    
+        int beaconValue = [_currentBeacon.minor intValue];
         
-        //we could just do this as _currentLocation = [_beaconMajor intValue], but this way guards against beacons we don't expect
-        switch ([_currentBeacon.major intValue]) {
-            case BeaconLocationNone:
-                newLocation = BeaconLocationNone;
-                break;
-            case BeaconLocationKitchen:
-                newLocation = BeaconLocationKitchen;
-                break;
-            case BeaconLocationReception:
-                newLocation = BeaconLocationReception;
-                break;
-            case BeaconLocationDesk:
-                newLocation = BeaconLocationDesk;
-                break;
-            default:
-                newLocation = BeaconLocationNone;
-                break;
+        if ([self validateBeaconValueIsValidLocation:beaconValue]) {
+            newLocation = beaconValue;
         }
     }
     
@@ -321,15 +343,15 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         if ([self hasChangedBeacon:nearestBeacon]) {
         
             //check if the new beacon has been de-ranged (because it's value is something we don't expect)
-            if (_currentLocation == BeaconLocationNone) {
+            if (_currentLocationId == BEACON_NONE) {
                 [_delegate beaconManagerDetectedNoBeacons];
             } else {
-                [_delegate beaconManagerDetectedLocation:_currentLocation fromBeacon:nearestBeacon];
+                [_delegate beaconManagerDetectedLocationId:_currentLocationId fromBeacon:nearestBeacon];
             }
         } else {
             
             //we've not changed beacon, just updated
-            [_delegate beaconManagerUpdatedLocation:_currentLocation fromBeacon:nearestBeacon];
+            [_delegate beaconManagerUpdatedLocationId:_currentLocationId fromBeacon:nearestBeacon];
         }
         
     } else {
@@ -338,7 +360,7 @@ static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
         [self logIfTracing:[NSString stringWithFormat:@"no beacons detected with suitable accuracy"]];
         
         //check to see whether this is a new exit or not
-        if (_currentLocation != BeaconLocationNone) {
+        if (_currentLocationId != BEACON_NONE) {
         
             [self clearLatestBeacon];
             [_delegate beaconManagerDetectedNoBeacons];

@@ -35,8 +35,7 @@ typedef void (^MapFailedBlock) (NSError *error);
 
 - (void)retrieveLocationMapWithSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure;
 
-- (NSDictionary*)locationDataForId:(NSInteger)locationId;
-
+- (NSArray*)getLocationData;
 - (UIImage*)getLocationMap;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

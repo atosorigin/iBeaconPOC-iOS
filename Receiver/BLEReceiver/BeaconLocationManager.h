@@ -9,19 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol BeaconLocationManagerDelegate;
+#define BEACON_NONE 0
 
-typedef NS_ENUM(NSInteger, BeaconLocation) {
-    BeaconLocationNone,
-    BeaconLocationKitchen,
-    BeaconLocationReception,
-    BeaconLocationDesk
-};
+@protocol BeaconLocationManagerDelegate;
 
 @interface BeaconLocationManager : NSObject<CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<BeaconLocationManagerDelegate> delegate;
-@property (nonatomic) BeaconLocation currentLocation;
+@property (nonatomic) int currentLocationId;
 @property (strong, nonatomic) CLBeacon *currentBeacon;
 
 //if true, logs out every poll interval (second) with beacon details
@@ -30,12 +25,11 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 //the number of dropouts allowed for the current beacon before it's considered dropped
 @property (nonatomic) int dropoutThreshold;
 
-- (void)initialiseLocationManager;
+- (void)initialiseLocationManagerWithLocations:(NSArray*)locations;
 - (void)startMonitoring;
 - (void)stopMonitoring;
 
-+ (BeaconLocation)getLocationForID:(int)locationId;
-+ (NSString*)getLocationDescriptionForLocation:(BeaconLocation)location;
+- (NSDictionary*)locationDataForId:(NSInteger)locationId;
 
 @end
 
@@ -48,8 +42,8 @@ typedef NS_ENUM(NSInteger, BeaconLocation) {
 - (void)beaconManagerStoppedMonitoring;
 
 - (void)beaconManagerDetectedNoBeacons;
-- (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon;
-- (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon;
+- (void)beaconManagerDetectedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon;
+- (void)beaconManagerUpdatedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon;
 
 - (void)beaconManagerChangedHeading:(CLHeading*)newHeading;
 

@@ -43,8 +43,8 @@
     
     DeviceLocation *historicalLocation = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    BeaconLocation location = [BeaconLocationManager getLocationForID:[historicalLocation.locationId intValue]];
-    cell.labelLocation.text = [BeaconLocationManager getLocationDescriptionForLocation:location];
+    //BeaconLocation location = [BeaconLocationManager getLocationForID:[historicalLocation.locationId intValue]];
+    //cell.labelLocation.text = [BeaconLocationManager getLocationDescriptionForLocation:location];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

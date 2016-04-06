@@ -3,9 +3,9 @@ Commands
 - Stop broadcasting: 
 > sudo ./ibeacon -z
 - Start broadcasting (Max = 1, Min = 0): 
-> sudo ./ibeacon -u 723C0A0F-D506-4175-8BB7-229A21BE470B -M 1 -m 0
+> sudo ./ibeacon -u 723C0A0F-D506-4175-8BB7-229A21BE470B -M 0 -m 1
 
-Change the "-M" parameter, where 1 = Kitchen, 2 = Reception and 3 = Desks
+Change the "-m" parameter, where 1 = Kitchen, 2 = Reception and 3 = Desks
 
 
 Information

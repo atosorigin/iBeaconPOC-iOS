@@ -127,8 +127,8 @@
     
     if (!isBroadcasting) {
         
-        CLBeaconMinorValue minor = 0;
-        CLBeaconMajorValue major = [_broadcastArea selectedRowInComponent:0] + 1;
+        CLBeaconMinorValue major = 0;
+        CLBeaconMajorValue minor = [_broadcastArea selectedRowInComponent:0] + 1;
         
         
         NSLog(@"setting region major %i, minor %i", major, minor);

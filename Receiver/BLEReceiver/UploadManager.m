@@ -120,23 +120,14 @@
     
 }
 
+- (NSArray*)getLocationData {
+    
+    return _locations;
+}
+
 - (UIImage*)getLocationMap {
     
     return _locationMap;
-}
-
-- (NSDictionary*)locationDataForId:(NSInteger)locationId {
-    
-    NSDictionary *result = nil;
-    
-    for (NSDictionary *loc in _locations) {
-        if ([loc[@"locationId"] isEqual:@(locationId)]) {
-            result = loc;
-            break;
-        }
-    }
-    
-    return result;
 }
 
 @end

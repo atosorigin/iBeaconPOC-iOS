@@ -41,10 +41,10 @@
     _locationManager.traceLog = YES;
     
     //save initial 'Out of area' state
-    [self saveLocationChange:BeaconLocationNone];
+    [self saveLocationChange:BEACON_NONE];
     
     //start!
-    [_locationManager initialiseLocationManager];
+    [_locationManager initialiseLocationManagerWithLocations:[[UploadManager sharedInstance] getLocationData]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,23 +112,23 @@
 
 - (void)beaconManagerDetectedNoBeacons {
     
-    [self saveLocationChange:BeaconLocationNone];
+    [self saveLocationChange:BEACON_NONE];
     [_viewGridContainer exclusiveHighlightCellX:-1 andCellY:-1];
     [self speak:@"You have now left the area!"];
 }
 
-- (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
+- (void)beaconManagerDetectedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon {
     
     //[_labelStatus setHidden:NO];
     //[_labelBeaconDetails setHidden:NO];
     
     //_labelBeaconDetails.text = [self stringFromBeacon:beacon];
     
-    [self saveLocationChange:currentLocation];
+    [self saveLocationChange:currentLocationId];
     
     NSString *speech;
     
-    NSDictionary *locationData = [[UploadManager sharedInstance] locationDataForId:currentLocation];
+    NSDictionary *locationData = [_locationManager locationDataForId:currentLocationId];
     
     NSLog(@"found locationData %@", locationData);
     
@@ -161,7 +161,7 @@
 }
 
 
-- (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
+- (void)beaconManagerUpdatedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon {
     
     //_labelBeaconDetails.text = [self stringFromBeacon:beacon];
 }
