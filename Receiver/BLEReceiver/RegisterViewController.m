@@ -78,7 +78,30 @@
         [defaults setObject:username forKey:kSavedUsernameKey];
         
         [defaults synchronize];
-        [self performSegueWithIdentifier:@"register" sender:nil];
+        
+        [[UploadManager sharedInstance] retrieveLocationMapSuccess:^(UIImage *map) {
+            
+            NSLog(@"Retrieved Map: %@", map);
+            
+            [self performSegueWithIdentifier:@"register" sender:nil];
+            
+        } failure:^(NSError *error) {
+            
+            NSLog(@"map download failed %@", error);
+            
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                           message:@"Failed to download mapping information."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {}];
+            
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }];
+        
+        
     } failure:^(NSError *error) {
         NSLog(@"registration failed %@", error);
        

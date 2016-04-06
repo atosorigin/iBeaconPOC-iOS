@@ -19,6 +19,9 @@ typedef void (^UploadFailedBlock) (NSError *error);
 typedef void (^RegisterSuccessBlock) ();
 typedef void (^RegisterFailedBlock) (NSError *error);
 
+typedef void (^MapSuccessBlock) (UIImage *map);
+typedef void (^MapFailedBlock) (NSError *error);
+
 #define kBaseURL @"http://development-visitorpal.rhcloud.com"
 
 @interface UploadManager : AFHTTPSessionManager
@@ -29,6 +32,8 @@ typedef void (^RegisterFailedBlock) (NSError *error);
     successBlock:(UploadSuccessBlock)success failedBlock:(UploadFailedBlock)failed;
 
 - (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure;
+
+- (void)retrieveLocationMapSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure;
 
 - (NSDictionary*)locationDataForId:(NSInteger)locationId;
 

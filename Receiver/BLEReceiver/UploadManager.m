@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) NSString *userIdentifier;
 @property (strong, nonatomic) NSArray *locations;
+@property (strong, nonatomic) UIImage *locationMap;
 
 @end
 
@@ -54,6 +55,7 @@
     
     [self saveLocally:_userIdentifier location:locationId date:now dateString:nowString];
     
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self POST:@"/api/deviceLocation" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success();
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -87,6 +89,7 @@
     
     _userIdentifier = email;
     
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self POST:@"/api/register" parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"response from reg = %@", responseObject);
         
@@ -94,6 +97,24 @@
         success();
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+    
+}
+
+- (void)retrieveLocationMapSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure {
+    
+    //Need to set the responseSerializer here to be something which can handle images. So far been unable to find one which handles both images and JSON. Note: we need to be very careful here as we're using a singleton, that we don't change this back to a JSON one before we receive the response.
+    self.responseSerializer = [AFImageResponseSerializer serializer];
+    
+    [self GET:@"/api/locations/map" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        _locationMap = (UIImage*)responseObject;
+        
+        success(_locationMap);
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         failure(error);
     }];
     
