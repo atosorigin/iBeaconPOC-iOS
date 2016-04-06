@@ -25,6 +25,8 @@
 //the number of dropouts allowed for the current beacon before it's considered dropped
 @property (nonatomic) int dropoutThreshold;
 
++ (id)sharedInstance;
+
 - (void)initialiseLocationManagerWithLocations:(NSArray*)locations;
 - (void)startMonitoring;
 - (void)stopMonitoring;

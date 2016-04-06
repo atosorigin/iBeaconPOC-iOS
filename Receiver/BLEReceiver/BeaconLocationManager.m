@@ -20,27 +20,32 @@
 @property (nonatomic) int numConsecutiveBeaconDropouts;
 @property (nonatomic) BOOL hasAuthorisation;
 
+@property (nonatomic) BOOL isInitialized;
+@property (nonatomic) BOOL isMonitoring;
+
 @end
 
 @implementation BeaconLocationManager {
     
 }
 
-//static NSString *const atosBeaconUUID = @"723C0A0F-D506-4175-8BB7-229A21BE470B";
-//static NSString *const atosBeaconId = @"net.atos.mobile.beacon";
++ (id)sharedInstance {
+    static dispatch_once_t once;
+    static BeaconLocationManager *sharedInstance;
+    
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    
+    return sharedInstance;
+}
 
-- (id)init {
+- (instancetype)init {
     
     self = [super init];
     if (self) {
         
-        [self clearLatestBeacon];
-        
-        _hasAuthorisation = NO;
-        _dropoutThreshold = 3;
-        
-        _traceLog = YES;
-        _numConsecutiveBeaconDropouts = 0;
+        [self basicInitialisation];
     }
     
     return self;
@@ -56,9 +61,30 @@
 
 #pragma mark Initialisation
 
+- (void)basicInitialisation {
+    
+    [self clearLatestBeacon];
+    
+    _hasAuthorisation = NO;
+    _dropoutThreshold = 3;
+    
+    _traceLog = YES;
+    _numConsecutiveBeaconDropouts = 0;
+    
+    _isInitialized = NO;
+    _isMonitoring = NO;
+    
+    _locationData = nil;
+    _atosID = nil;
+    _atosUUID = nil;
+}
+
 - (void)initialiseLocationManagerWithLocations:(NSArray*)locations {
     
     NSLog(@"Location Manager - initialising");
+    
+    //re-do the basic initialisation - this is incase we're starting again from fresh, but we've not got a new object
+    [self basicInitialisation];
     
     _currentLocationId = BEACON_NONE;
     _locationData = locations;
@@ -67,6 +93,8 @@
     
     [self initBeaconRegion];
     [self initLocationManager];
+    
+    _isInitialized = YES;
     
     [_locationManager requestWhenInUseAuthorization];
 }
@@ -126,9 +154,12 @@
 
 - (void)startMonitoring {
     
-    if (_hasAuthorisation) {
+    //start monitoring if we're authorised, initialised and not already monitoring
+    if (_hasAuthorisation && _isInitialized && !_isMonitoring) {
         
         NSLog(@"Location Manager - starting monitoring for region[%@] and updating heading", _beaconRegion);
+        
+        _isMonitoring = YES;
         
         [_locationManager startUpdatingHeading];
         [_locationManager startRangingBeaconsInRegion:_beaconRegion];
@@ -139,11 +170,14 @@
 
 - (void)stopMonitoring {
     
-    NSLog(@"Location Manager - stopping monitoring for region[%@] and stop updating heading", _beaconRegion);
+    //stop monitoring if we're already monitoring
+    if (_isMonitoring) {
+        NSLog(@"Location Manager - stopping monitoring for region[%@] and stop updating heading", _beaconRegion);
     
-    [_locationManager stopUpdatingHeading];
-    [_locationManager stopRangingBeaconsInRegion:_beaconRegion];
-    [_delegate beaconManagerStoppedMonitoring];
+        [_locationManager stopUpdatingHeading];
+        [_locationManager stopRangingBeaconsInRegion:_beaconRegion];
+        [_delegate beaconManagerStoppedMonitoring];
+    }
 }
 
 #pragma mark LocationData Handlers

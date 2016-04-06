@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "BeaconLocationManager.h"
 
 @interface RegisterViewController ()
 
@@ -25,6 +26,13 @@
     // Do any additional setup after loading the view.
     
     [self prepopulateFields];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    //check the beaconLocationManager isn't running - it might be if we've come back from the Events page.
+    //this is fine to do as it won't do anything if it isn't configured/running
+    [[BeaconLocationManager sharedInstance] stopMonitoring];
 }
 
 - (void)prepopulateFields {

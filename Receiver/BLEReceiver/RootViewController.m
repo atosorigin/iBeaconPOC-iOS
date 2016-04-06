@@ -13,8 +13,6 @@
 
 @interface RootViewController ()
 
-@property (strong, nonatomic) BeaconLocationManager *locationManager;
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMap;
 @property (weak, nonatomic) IBOutlet HighlightableCellGrid *viewGridContainer;
@@ -36,25 +34,23 @@
     [_imgMap setImage:[[UploadManager sharedInstance] getLocationMap]];
     
     //create the location manager
-    _locationManager = [[BeaconLocationManager alloc] init];
-    _locationManager.delegate = self;
-    _locationManager.traceLog = YES;
+    BeaconLocationManager *manager = [BeaconLocationManager sharedInstance];
+    manager.delegate = self;
+    manager.traceLog = YES;
     
     //save initial 'Out of area' state
     [self saveLocationChange:BEACON_NONE];
     
-    //start!
-    [_locationManager initialiseLocationManagerWithLocations:[[UploadManager sharedInstance] getLocationData]];
+    //start the location manager here, after we've logged in!
+    [manager initialiseLocationManagerWithLocations:[[UploadManager sharedInstance] getLocationData]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    //[_locationManager startMonitoring];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    
-    //[_locationManager stopMonitoring];
+
 }
 
 - (NSString*)stringFromBeacon:(CLBeacon*)beacon {
@@ -95,7 +91,7 @@
 
 - (void)beaconManagerAuthorisationToContinue {
     
-    [_locationManager startMonitoring];
+    [[BeaconLocationManager sharedInstance] startMonitoring];
 }
 
 - (void)beaconManagerAuthorisationError {
@@ -128,7 +124,7 @@
     
     NSString *speech;
     
-    NSDictionary *locationData = [_locationManager locationDataForId:currentLocationId];
+    NSDictionary *locationData = [[BeaconLocationManager sharedInstance] locationDataForId:currentLocationId];
     
     NSLog(@"found locationData %@", locationData);
     

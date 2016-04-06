@@ -43,6 +43,14 @@
     
     DeviceLocation *historicalLocation = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
+    NSDictionary *locationData = [[BeaconLocationManager sharedInstance] locationDataForId:[historicalLocation.locationId intValue]];
+    
+    if (locationData != nil) {
+        cell.labelLocation.text = locationData[@"description"];
+    } else {
+        cell.labelLocation.text = @"Outside Beacon Range";
+    }
+    
     //BeaconLocation location = [BeaconLocationManager getLocationForID:[historicalLocation.locationId intValue]];
     //cell.labelLocation.text = [BeaconLocationManager getLocationDescriptionForLocation:location];
     
