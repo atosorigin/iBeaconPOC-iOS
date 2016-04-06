@@ -13,13 +13,6 @@
 
 @property (strong, nonatomic) BeaconLocationManager *locationManager;
 
-
-@property (weak, nonatomic) IBOutlet UIView *viewKitchen;
-@property (weak, nonatomic) IBOutlet UIView *viewReception;
-@property (weak, nonatomic) IBOutlet UIView *viewDesk;
-@property (weak, nonatomic) IBOutlet UILabel *labelStatus;
-@property (weak, nonatomic) IBOutlet UILabel *labelScanning;
-@property (weak, nonatomic) IBOutlet UILabel *labelBeaconDetails;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrentLocation;
@@ -92,12 +85,14 @@
 
 - (void)configureUINoBeacons {
     
+    /*
     [_labelBeaconDetails setHidden:YES];
     [_labelStatus setHidden:YES];
     
     [_viewKitchen setHidden:YES];
     [_viewReception setHidden:YES];
     [_viewDesk setHidden:YES];
+     */
 }
 
 #pragma mark BeaconLocationManagerDelegate
@@ -112,11 +107,11 @@
 }
 
 - (void)beaconManagerStartedMonitoring {
-    [_labelScanning setHidden:NO];
+    //[_labelScanning setHidden:NO];
 }
 
 - (void)beaconManagerStoppedMonitoring {
-    [_labelScanning setHidden:YES];
+    //[_labelScanning setHidden:YES];
 }
 
 - (void)beaconManagerDetectedNoBeacons {
@@ -129,10 +124,10 @@
 
 - (void)beaconManagerDetectedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
     
-    [_labelStatus setHidden:NO];
-    [_labelBeaconDetails setHidden:NO];
+    //[_labelStatus setHidden:NO];
+    //[_labelBeaconDetails setHidden:NO];
     
-    _labelBeaconDetails.text = [self stringFromBeacon:beacon];
+    //_labelBeaconDetails.text = [self stringFromBeacon:beacon];
     
     [self saveLocationChange:currentLocation];
     
@@ -151,19 +146,19 @@
     
     switch (currentLocation) {
         case BeaconLocationKitchen:
-            [_viewKitchen setHidden:NO];
-            [_viewReception setHidden:YES];
-            [_viewDesk setHidden:YES];
+            //[_viewKitchen setHidden:NO];
+            //[_viewReception setHidden:YES];
+            //[_viewDesk setHidden:YES];
             break;
         case BeaconLocationReception:
-            [_viewKitchen setHidden:YES];
-            [_viewReception setHidden:NO];
-            [_viewDesk setHidden:YES];
+            //[_viewKitchen setHidden:YES];
+            //[_viewReception setHidden:NO];
+            //[_viewDesk setHidden:YES];
             break;
         case BeaconLocationDesk:
-            [_viewKitchen setHidden:YES];
-            [_viewReception setHidden:YES];
-            [_viewDesk setHidden:NO];
+            //[_viewKitchen setHidden:YES];
+            //[_viewReception setHidden:YES];
+            //[_viewDesk setHidden:NO];
             break;
         case BeaconLocationNone:
         default:
@@ -188,7 +183,7 @@
 
 - (void)beaconManagerUpdatedLocation:(BeaconLocation)currentLocation fromBeacon:(CLBeacon*)beacon {
     
-    _labelBeaconDetails.text = [self stringFromBeacon:beacon];
+    //_labelBeaconDetails.text = [self stringFromBeacon:beacon];
 }
 
 - (void)beaconManagerChangedHeading:(CLHeading *)newHeading {
