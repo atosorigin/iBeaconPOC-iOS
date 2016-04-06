@@ -8,12 +8,15 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "RootViewController.h"
+#import "UploadManager.h"
 
 @interface RootViewController ()
 
 @property (strong, nonatomic) BeaconLocationManager *locationManager;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgCompass;
+@property (weak, nonatomic) IBOutlet UIImageView *imgMap;
+@property (weak, nonatomic) IBOutlet UIView *viewGridContainer;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelCurrentLocation;
 @end
@@ -28,6 +31,8 @@
     CGAffineTransform compassTransform = CGAffineTransformMakeRotation(0);
     [_imgCompass setTransform:compassTransform];
     
+    [self configureBeaconMap];
+    
     _locationManager = [[BeaconLocationManager alloc] init];
     _locationManager.delegate = self;
     _locationManager.traceLog = YES;
@@ -36,7 +41,7 @@
     [self saveLocationChange:BeaconLocationNone];
     
     [_locationManager initialiseLocationManager];
-    [_locationManager startMonitoring];
+    //[_locationManager startMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,6 +52,14 @@
 - (void)viewDidDisappear:(BOOL)animated {
     
     //[_locationManager stopMonitoring];
+}
+
+- (void)configureBeaconMap {
+    
+    [_imgMap setImage:[[UploadManager sharedInstance] getLocationMap]];
+    
+    //with the viewGridContainer, programmatically add stackview of views 5x5
+
 }
 
 - (NSString*)stringFromBeacon:(CLBeacon*)beacon {

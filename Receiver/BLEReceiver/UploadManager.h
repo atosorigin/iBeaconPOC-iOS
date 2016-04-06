@@ -33,9 +33,11 @@ typedef void (^MapFailedBlock) (NSError *error);
 
 - (void)registerUserWithEmail:(NSString*)email username:(NSString*)username success:(RegisterSuccessBlock)success failure:(RegisterFailedBlock)failure;
 
-- (void)retrieveLocationMapSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure;
+- (void)retrieveLocationMapWithSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure;
 
 - (NSDictionary*)locationDataForId:(NSInteger)locationId;
+
+- (UIImage*)getLocationMap;
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 

@@ -147,7 +147,6 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G4J-fd-8FD">
                                         <rect key="frame" x="105" y="0.0" width="350" height="350"/>
-                                        <color key="backgroundColor" red="0.80392156859999997" green="0.0078431372550000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="G4J-fd-8FD" secondAttribute="height" multiplier="1:1" id="ArB-lZ-gDO"/>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="128" id="WIb-Hb-Nc4"/>
@@ -158,6 +157,10 @@
                                             </mask>
                                         </variation>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2az-Ce-cGS">
+                                        <rect key="frame" x="105" y="0.0" width="350" height="350"/>
+                                        <color key="backgroundColor" red="0.31138867139816284" green="0.99512380361557007" blue="0.012188149616122246" alpha="0.20469874100719423" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.7762050653" blue="0.91652539489999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -166,8 +169,12 @@
                                     <constraint firstItem="G4J-fd-8FD" firstAttribute="height" secondItem="H2X-vC-wzp" secondAttribute="height" priority="750" id="ADq-p4-AHp"/>
                                     <constraint firstItem="G4J-fd-8FD" firstAttribute="centerY" secondItem="H2X-vC-wzp" secondAttribute="centerY" id="Anp-gv-rpz"/>
                                     <constraint firstItem="G4J-fd-8FD" firstAttribute="height" relation="lessThanOrEqual" secondItem="H2X-vC-wzp" secondAttribute="height" id="N6n-Ze-ON8"/>
+                                    <constraint firstItem="2az-Ce-cGS" firstAttribute="width" secondItem="G4J-fd-8FD" secondAttribute="width" id="SX1-qK-eki"/>
+                                    <constraint firstItem="2az-Ce-cGS" firstAttribute="centerY" secondItem="G4J-fd-8FD" secondAttribute="centerY" id="dQT-5r-PQG"/>
                                     <constraint firstItem="G4J-fd-8FD" firstAttribute="height" relation="lessThanOrEqual" secondItem="H2X-vC-wzp" secondAttribute="height" constant="1" id="rOu-4f-sba"/>
                                     <constraint firstItem="G4J-fd-8FD" firstAttribute="width" secondItem="H2X-vC-wzp" secondAttribute="width" priority="750" id="uH6-y7-GMs"/>
+                                    <constraint firstItem="2az-Ce-cGS" firstAttribute="centerX" secondItem="G4J-fd-8FD" secondAttribute="centerX" id="wuA-1X-v5b"/>
+                                    <constraint firstItem="2az-Ce-cGS" firstAttribute="height" secondItem="G4J-fd-8FD" secondAttribute="height" id="zhU-l7-L5V"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -197,6 +204,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imgCompass" destination="8qO-7T-RIh" id="UHV-Iu-EIZ"/>
+                        <outlet property="imgMap" destination="G4J-fd-8FD" id="Q0S-Ja-3XZ"/>
+                        <outlet property="viewGridContainer" destination="2az-Ce-cGS" id="Mn6-tY-s2K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>

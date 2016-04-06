@@ -79,7 +79,7 @@
         
         [defaults synchronize];
         
-        [[UploadManager sharedInstance] retrieveLocationMapSuccess:^(UIImage *map) {
+        [[UploadManager sharedInstance] retrieveLocationMapWithSuccess:^(UIImage *map) {
             
             NSLog(@"Retrieved Map: %@", map);
             

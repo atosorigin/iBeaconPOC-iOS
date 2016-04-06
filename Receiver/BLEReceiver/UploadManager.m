@@ -102,7 +102,7 @@
     
 }
 
-- (void)retrieveLocationMapSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure {
+- (void)retrieveLocationMapWithSuccess:(MapSuccessBlock)success failure:(MapFailedBlock)failure {
     
     //Need to set the responseSerializer here to be something which can handle images. So far been unable to find one which handles both images and JSON. Note: we need to be very careful here as we're using a singleton, that we don't change this back to a JSON one before we receive the response.
     self.responseSerializer = [AFImageResponseSerializer serializer];
@@ -118,6 +118,11 @@
         failure(error);
     }];
     
+}
+
+- (UIImage*)getLocationMap {
+    
+    return _locationMap;
 }
 
 - (NSDictionary*)locationDataForId:(NSInteger)locationId {
