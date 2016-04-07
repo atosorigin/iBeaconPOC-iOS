@@ -60,7 +60,7 @@
         //create a cell for each column to be placed in this row
         for (int j = 0; j < _numColumns; j++) {
             CircleCellView *cell = [CircleCellView new];
-            cell.backgroundColor = [UIColor colorWithRed:((float)rand() / RAND_MAX) green:((float)rand() / RAND_MAX) blue:((float)rand() / RAND_MAX) alpha:1.0f];
+            cell.backgroundColor = [UIColor colorWithRed:0.0f green:0.3984f blue:0.6289f alpha:1.0f];
             
             //by default hide the view - we cant use the Hidden property as this removes it from the StackView
             cell.alpha = 0.0f;

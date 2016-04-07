@@ -17,6 +17,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgMap;
 @property (weak, nonatomic) IBOutlet HighlightableCellGrid *viewGridContainer;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelCurrentLocation;
+@property (weak, nonatomic) IBOutlet UILabel *textCurrentLocation;
+@property (weak, nonatomic) IBOutlet UILabel *textMessage;
+@property (weak, nonatomic) IBOutlet UIImageView *imagePowered;
+@property (weak, nonatomic) IBOutlet UIImageView *imageConnected;
 @end
 
 @implementation RootViewController {
@@ -40,6 +45,9 @@
     
     //save initial 'Out of area' state
     [self saveLocationChange:BEACON_NONE];
+    
+    //configure the screen
+    [self configureOffline];
     
     //start the location manager here, after we've logged in!
     [manager initialiseLocationManagerWithLocations:[[UploadManager sharedInstance] getLocationData]];
@@ -87,6 +95,40 @@
     [synth speakUtterance:utterance];
 }
 
+#pragma mark Screen Configuration
+- (void)configureOffline {
+    
+    [_labelCurrentLocation setHidden:YES];
+    [_textMessage setHidden:YES];
+    [_textCurrentLocation setHidden:YES];
+    
+    [_imagePowered setImage:[UIImage imageNamed:@"offline"]];
+    [_imageConnected setHidden:YES];
+    
+}
+
+- (void)configureOnlineNoBeacons {
+    
+    [_labelCurrentLocation setHidden:YES];
+    [_textMessage setHidden:YES];
+    [_textCurrentLocation setHidden:YES];
+    
+    [_imagePowered setImage:[UIImage imageNamed:@"online"]];
+    [_imageConnected setHidden:YES];
+}
+
+- (void)configureOnlineBeaconsWithLocation:(NSString*)location andMessage:(NSString*)message {
+    
+    [_labelCurrentLocation setHidden:NO];
+    [_textMessage setHidden:NO];
+    [_textMessage setText:message];
+    [_textCurrentLocation setHidden:NO];
+    [_textCurrentLocation setText:location];
+    
+    [_imagePowered setImage:[UIImage imageNamed:@"online"]];
+    [_imageConnected setHidden:NO];
+}
+
 #pragma mark BeaconLocationManagerDelegate
 
 - (void)beaconManagerAuthorisationToContinue {
@@ -99,33 +141,30 @@
 }
 
 - (void)beaconManagerStartedMonitoring {
-    //[_labelScanning setHidden:NO];
+    [self configureOnlineNoBeacons];
 }
 
 - (void)beaconManagerStoppedMonitoring {
-    //[_labelScanning setHidden:YES];
+    [self configureOffline];
 }
 
 - (void)beaconManagerDetectedNoBeacons {
     
     [self saveLocationChange:BEACON_NONE];
+    
+    [self configureOnlineNoBeacons];
     [_viewGridContainer exclusiveHighlightCellX:-1 andCellY:-1];
+    
     [self speak:@"You have now left the area!"];
 }
 
 - (void)beaconManagerDetectedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon {
     
-    //[_labelStatus setHidden:NO];
-    //[_labelBeaconDetails setHidden:NO];
-    
-    //_labelBeaconDetails.text = [self stringFromBeacon:beacon];
-    
     [self saveLocationChange:currentLocationId];
     
-    NSString *speech;
+    NSString *speech = @"";
     
     NSDictionary *locationData = [[BeaconLocationManager sharedInstance] locationDataForId:currentLocationId];
-    
     NSLog(@"found locationData %@", locationData);
     
     if (locationData != nil) {
@@ -136,9 +175,12 @@
         
         [_viewGridContainer exclusiveHighlightCellX:[xRef intValue] andCellY:[yRef intValue]];
         
-        //_labelCurrentLocation.text = locationData[@"description"];
+        [self configureOnlineBeaconsWithLocation:locationData[@"description"] andMessage:locationData[@"audio"]];
+
     } else {
-        //_labelCurrentLocation.text = @"";
+
+        //if we don't have location data, something has gone wrong somewhere :/
+        [self configureOnlineNoBeacons];
     }
     
     
