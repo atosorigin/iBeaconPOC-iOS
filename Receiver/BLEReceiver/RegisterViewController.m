@@ -12,8 +12,9 @@
 @interface RegisterViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UIButton *buttonRegister;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
 - (IBAction)registerPressed:(id)sender;
 
@@ -33,6 +34,7 @@
     //check the beaconLocationManager isn't running - it might be if we've come back from the Events page.
     //this is fine to do as it won't do anything if it isn't configured/running
     [[BeaconLocationManager sharedInstance] stopMonitoring];
+
 }
 
 - (void)prepopulateFields {
@@ -56,18 +58,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)registerPressed:(id)sender {
     
+    [self.view endEditing:YES];
+    [_loadingIndicator setHidden:NO];
+    [_buttonRegister setEnabled:NO];
     [self registerUser];
     
 }
@@ -90,6 +85,9 @@
         [[UploadManager sharedInstance] retrieveLocationMapWithSuccess:^(UIImage *map) {
             
             NSLog(@"Retrieved Map: %@", map);
+            
+            [_loadingIndicator setHidden:YES];
+            [_buttonRegister setEnabled:YES];
             
             [self performSegueWithIdentifier:@"register" sender:nil];
             
