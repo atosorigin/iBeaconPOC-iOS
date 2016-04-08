@@ -27,6 +27,7 @@
     
     if (self) {
         self.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     }
     
     return self;
