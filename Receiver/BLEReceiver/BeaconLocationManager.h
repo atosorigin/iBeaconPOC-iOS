@@ -32,6 +32,7 @@
 - (void)stopMonitoring;
 
 - (NSDictionary*)locationDataForId:(NSInteger)locationId;
+- (NSDictionary*)locationDataForMeeting;
 
 @end
 

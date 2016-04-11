@@ -68,7 +68,6 @@
     _hasAuthorisation = NO;
     _dropoutThreshold = 3;
     
-    _traceLog = YES;
     _numConsecutiveBeaconDropouts = 0;
     
     _isInitialized = NO;
@@ -203,6 +202,19 @@
     
     for (NSDictionary *loc in _locationData) {
         if ([loc[@"locationId"] isEqual:@(locationId)]) {
+            result = loc;
+            break;
+        }
+    }
+    
+    return result;
+}
+
+- (NSDictionary*)locationDataForMeeting {
+    NSDictionary *result = nil;
+    
+    for (NSDictionary *loc in _locationData) {
+        if ([loc[@"isMeetingLocation"] isEqual:@(1)]) {
             result = loc;
             break;
         }

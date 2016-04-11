@@ -11,5 +11,6 @@
 @interface HighlightableCellGrid : UIView
 
 - (void)exclusiveHighlightCellX:(int)cellX andCellY:(int)cellY;
+- (void)exclusiveMeetingHighlightCellX:(int)cellX andCellY:(int)cellY;
 
 @end

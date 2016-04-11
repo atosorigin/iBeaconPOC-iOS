@@ -41,7 +41,7 @@
     //create the location manager
     BeaconLocationManager *manager = [BeaconLocationManager sharedInstance];
     manager.delegate = self;
-    manager.traceLog = YES;
+    manager.traceLog = NO;
     
     //save initial 'Out of area' state
     [self saveLocationChange:BEACON_NONE];
@@ -51,6 +51,12 @@
     
     //start the location manager here, after we've logged in!
     [manager initialiseLocationManagerWithLocations:[[UploadManager sharedInstance] getLocationData]];
+    
+    //now highlight the meeting location
+    NSDictionary *locationData = [manager locationDataForMeeting];
+    NSNumber *xRef = locationData[@"xRef"];
+    NSNumber *yRef = locationData[@"yRef"];
+    [_viewGridContainer exclusiveMeetingHighlightCellX:[xRef intValue] andCellY:[yRef intValue]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
