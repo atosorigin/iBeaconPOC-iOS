@@ -76,29 +76,6 @@
                                     </mask>
                                 </variation>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AtosLogo" translatesAutoresizingMaskIntoConstraints="NO" id="J1R-j4-ZL5">
-                                <rect key="frame" x="210" y="72" width="179" height="67"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="9H4-5s-hNC"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Krj-55-ygp"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="PMS-AS-fiQ"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Q6T-VI-QdJ"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="WpT-km-bmE"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="XgO-Jz-sQB"/>
-                                    <constraint firstAttribute="height" constant="67" id="ZLR-fY-N9R"/>
-                                    <constraint firstAttribute="width" constant="179" id="f1E-WC-moQ"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="9H4-5s-hNC"/>
-                                        <exclude reference="Krj-55-ygp"/>
-                                        <exclude reference="PMS-AS-fiQ"/>
-                                        <exclude reference="Q6T-VI-QdJ"/>
-                                        <exclude reference="WpT-km-bmE"/>
-                                        <exclude reference="XgO-Jz-sQB"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VisitorPal Event Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqN-aF-NaK">
                                 <rect key="frame" x="190" y="147" width="220" height="21"/>
                                 <constraints>
@@ -152,21 +129,86 @@
                                 </constraints>
                                 <color key="color" red="0.0" green="0.40000000000000002" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="85B-2Z-kEs">
+                                <rect key="frame" x="184" y="72" width="233" height="67"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AtosLogo" translatesAutoresizingMaskIntoConstraints="NO" id="J1R-j4-ZL5">
+                                        <rect key="frame" x="54" y="0.0" width="179" height="67"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="4GR-I7-x0k"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="9H4-5s-hNC"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Krj-55-ygp"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="PMS-AS-fiQ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Q6T-VI-QdJ"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Txw-ef-rDY"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="WpT-km-bmE"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="XgO-Jz-sQB"/>
+                                            <constraint firstAttribute="height" constant="67" id="ZLR-fY-N9R"/>
+                                            <constraint firstAttribute="width" constant="179" id="f1E-WC-moQ"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="4GR-I7-x0k"/>
+                                                <exclude reference="9H4-5s-hNC"/>
+                                                <exclude reference="Krj-55-ygp"/>
+                                                <exclude reference="PMS-AS-fiQ"/>
+                                                <exclude reference="Q6T-VI-QdJ"/>
+                                                <exclude reference="Txw-ef-rDY"/>
+                                                <exclude reference="WpT-km-bmE"/>
+                                                <exclude reference="XgO-Jz-sQB"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visitorpal_logo" translatesAutoresizingMaskIntoConstraints="NO" id="6zF-Zm-0eR">
+                                        <rect key="frame" x="10" y="12" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="Fby-19-Wl8"/>
+                                            <constraint firstAttribute="height" constant="44" id="mIJ-8S-gU4"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="233" id="2BQ-QT-oX9"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="top" secondItem="85B-2Z-kEs" secondAttribute="top" id="85w-hW-eCh"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="centerY" secondItem="6zF-Zm-0eR" secondAttribute="centerY" id="EZO-Ii-MSA"/>
+                                    <constraint firstAttribute="trailing" secondItem="J1R-j4-ZL5" secondAttribute="trailing" id="FHy-K6-4iW"/>
+                                    <constraint firstAttribute="height" constant="67" id="P04-di-SCe"/>
+                                    <constraint firstItem="6zF-Zm-0eR" firstAttribute="leading" secondItem="85B-2Z-kEs" secondAttribute="leading" constant="20" id="X0p-iS-adO"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="centerX" secondItem="85B-2Z-kEs" secondAttribute="centerX" id="aBN-no-TqT"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="top" secondItem="85B-2Z-kEs" secondAttribute="top" id="aE7-Zi-2sf"/>
+                                    <constraint firstItem="6zF-Zm-0eR" firstAttribute="leading" secondItem="85B-2Z-kEs" secondAttribute="leading" constant="10" id="ebx-DC-daR"/>
+                                    <constraint firstItem="6zF-Zm-0eR" firstAttribute="centerY" secondItem="85B-2Z-kEs" secondAttribute="centerY" id="lZC-RM-RiY"/>
+                                    <constraint firstAttribute="trailing" secondItem="J1R-j4-ZL5" secondAttribute="trailing" id="nn0-6l-feB"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="top" secondItem="85B-2Z-kEs" secondAttribute="top" id="pP6-gf-sO9"/>
+                                    <constraint firstItem="J1R-j4-ZL5" firstAttribute="centerY" secondItem="85B-2Z-kEs" secondAttribute="centerY" id="yKg-QD-JPs"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="X0p-iS-adO"/>
+                                        <exclude reference="EZO-Ii-MSA"/>
+                                        <exclude reference="FHy-K6-4iW"/>
+                                        <exclude reference="aBN-no-TqT"/>
+                                        <exclude reference="aE7-Zi-2sf"/>
+                                        <exclude reference="pP6-gf-sO9"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YdW-i0-qpC" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="7lQ-j3-7q5"/>
-                            <constraint firstItem="rqN-aF-NaK" firstAttribute="top" secondItem="J1R-j4-ZL5" secondAttribute="bottom" constant="8" id="8fv-mA-fu2"/>
                             <constraint firstItem="YdW-i0-qpC" firstAttribute="top" secondItem="rGb-0M-Nfj" secondAttribute="bottom" constant="8" id="96j-aR-vVb"/>
                             <constraint firstItem="2LH-Pd-gPI" firstAttribute="leading" secondItem="YdW-i0-qpC" secondAttribute="trailing" constant="8" id="As6-XR-r51"/>
+                            <constraint firstItem="85B-2Z-kEs" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="TAV-e6-iYO"/>
                             <constraint firstItem="2LH-Pd-gPI" firstAttribute="centerY" secondItem="YdW-i0-qpC" secondAttribute="centerY" id="TKx-ld-wh8"/>
                             <constraint firstItem="rGb-0M-Nfj" firstAttribute="top" secondItem="9Mo-yz-j9K" secondAttribute="bottom" constant="8" id="Th9-S3-C6k"/>
                             <constraint firstItem="9Mo-yz-j9K" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="fQP-68-qPJ"/>
-                            <constraint firstItem="J1R-j4-ZL5" firstAttribute="top" secondItem="jtN-AW-uvt" secondAttribute="bottom" constant="8" id="kX9-0u-pOe"/>
+                            <constraint firstItem="85B-2Z-kEs" firstAttribute="top" secondItem="jtN-AW-uvt" secondAttribute="bottom" constant="8" id="l3q-Bd-ywW"/>
                             <constraint firstItem="9Mo-yz-j9K" firstAttribute="centerY" secondItem="mun-vz-0sj" secondAttribute="centerY" id="nvU-KA-f6N"/>
+                            <constraint firstItem="rqN-aF-NaK" firstAttribute="top" secondItem="85B-2Z-kEs" secondAttribute="bottom" constant="8" id="sTO-tp-gZO"/>
                             <constraint firstItem="rqN-aF-NaK" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="xSS-Lj-9bP"/>
                             <constraint firstItem="rGb-0M-Nfj" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="xaJ-HY-h8I"/>
-                            <constraint firstItem="J1R-j4-ZL5" firstAttribute="centerX" secondItem="mun-vz-0sj" secondAttribute="centerX" id="zFY-ZM-Hyq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Event Registration" id="kTh-Oh-mcM"/>
@@ -502,5 +544,6 @@
         <image name="compass" width="83" height="83"/>
         <image name="connected" width="34" height="34"/>
         <image name="offline" width="34" height="34"/>
+        <image name="visitorpal_logo" width="60" height="60"/>
     </resources>
 </document>

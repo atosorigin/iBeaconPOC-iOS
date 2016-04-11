@@ -46,7 +46,7 @@
 		A54883A11CB64A1500659468 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A54883A31CB64FBE00659468 /* CircleCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCellView.h; sourceTree = "<group>"; };
 		A54883A41CB64FBE00659468 /* CircleCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCellView.m; sourceTree = "<group>"; };
-		A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEReceiver.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5ED119A1C8F0B5E00108EC7 /* VisitorPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisitorPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5ED119E1C8F0B5E00108EC7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A5ED11A01C8F0B5E00108EC7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A5ED11A11C8F0B5E00108EC7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		A5ED119B1C8F0B5E00108EC7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */,
+				A5ED119A1C8F0B5E00108EC7 /* VisitorPal.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,9 +198,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A5ED11991C8F0B5E00108EC7 /* BLEReceiver */ = {
+		A5ED11991C8F0B5E00108EC7 /* VisitorPal */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5ED11B71C8F0B5E00108EC7 /* Build configuration list for PBXNativeTarget "BLEReceiver" */;
+			buildConfigurationList = A5ED11B71C8F0B5E00108EC7 /* Build configuration list for PBXNativeTarget "VisitorPal" */;
 			buildPhases = (
 				1AC27BCC57C2F016C08BB5EE /* Check Pods Manifest.lock */,
 				A5ED11961C8F0B5E00108EC7 /* Sources */,
@@ -213,9 +213,9 @@
 			);
 			dependencies = (
 			);
-			name = BLEReceiver;
+			name = VisitorPal;
 			productName = BLEReceiver;
-			productReference = A5ED119A1C8F0B5E00108EC7 /* BLEReceiver.app */;
+			productReference = A5ED119A1C8F0B5E00108EC7 /* VisitorPal.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -251,7 +251,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A5ED11991C8F0B5E00108EC7 /* BLEReceiver */,
+				A5ED11991C8F0B5E00108EC7 /* VisitorPal */,
 			);
 		};
 /* End PBXProject section */
@@ -482,7 +482,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5ED11B71C8F0B5E00108EC7 /* Build configuration list for PBXNativeTarget "BLEReceiver" */ = {
+		A5ED11B71C8F0B5E00108EC7 /* Build configuration list for PBXNativeTarget "VisitorPal" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A5ED11B81C8F0B5E00108EC7 /* Debug */,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +16,106 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ina-Gr-Y6E">
+                                <rect key="frame" x="184" y="267" width="233" height="67"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AtosLogo" translatesAutoresizingMaskIntoConstraints="NO" id="J2A-Uw-7N7">
+                                        <rect key="frame" x="54" y="0.0" width="179" height="67"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="Am3-z0-ldg"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="KDz-Zb-WKe"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="M8H-Mm-gnr"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="RwO-mJ-kHX"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="fH4-XG-cu1"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="fJz-CJ-gy1"/>
+                                            <constraint firstAttribute="width" constant="179" id="feg-Fq-gAU"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="jj5-oI-CVV"/>
+                                            <constraint firstAttribute="height" constant="67" id="uln-3Z-Hhj"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="179" id="w6c-tn-Ftb"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="fJz-CJ-gy1"/>
+                                                <exclude reference="RwO-mJ-kHX"/>
+                                                <exclude reference="Am3-z0-ldg"/>
+                                                <exclude reference="fH4-XG-cu1"/>
+                                                <exclude reference="jj5-oI-CVV"/>
+                                                <exclude reference="KDz-Zb-WKe"/>
+                                                <exclude reference="w6c-tn-Ftb"/>
+                                                <exclude reference="M8H-Mm-gnr"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visitorpal_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ulS-lW-PrZ">
+                                        <rect key="frame" x="10" y="12" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="GSV-sw-5eG"/>
+                                            <constraint firstAttribute="height" constant="44" id="ey1-v6-mcE"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="centerY" secondItem="ulS-lW-PrZ" secondAttribute="centerY" id="2NF-KV-nhn"/>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="centerY" secondItem="Ina-Gr-Y6E" secondAttribute="centerY" id="4lZ-tq-W2X"/>
+                                    <constraint firstAttribute="trailing" secondItem="J2A-Uw-7N7" secondAttribute="trailing" id="8sN-kz-cQN"/>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="top" secondItem="Ina-Gr-Y6E" secondAttribute="top" id="E2A-3R-cyK"/>
+                                    <constraint firstAttribute="height" constant="67" id="fhp-LQ-PUa"/>
+                                    <constraint firstAttribute="width" constant="233" id="k8q-4t-03B"/>
+                                    <constraint firstItem="ulS-lW-PrZ" firstAttribute="leading" secondItem="Ina-Gr-Y6E" secondAttribute="leading" constant="20" id="l71-If-c7t"/>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="top" secondItem="Ina-Gr-Y6E" secondAttribute="top" id="lX8-c0-crr"/>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="top" secondItem="Ina-Gr-Y6E" secondAttribute="top" id="o4r-dS-GBG"/>
+                                    <constraint firstItem="ulS-lW-PrZ" firstAttribute="centerY" secondItem="Ina-Gr-Y6E" secondAttribute="centerY" id="pFw-Hs-dPL"/>
+                                    <constraint firstAttribute="trailing" secondItem="J2A-Uw-7N7" secondAttribute="trailing" id="reu-pY-HCF"/>
+                                    <constraint firstItem="J2A-Uw-7N7" firstAttribute="centerX" secondItem="Ina-Gr-Y6E" secondAttribute="centerX" id="t8O-cZ-kRv"/>
+                                    <constraint firstItem="ulS-lW-PrZ" firstAttribute="leading" secondItem="Ina-Gr-Y6E" secondAttribute="leading" constant="10" id="tpy-TQ-V9c"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="l71-If-c7t"/>
+                                        <exclude reference="2NF-KV-nhn"/>
+                                        <exclude reference="reu-pY-HCF"/>
+                                        <exclude reference="t8O-cZ-kRv"/>
+                                        <exclude reference="lX8-c0-crr"/>
+                                        <exclude reference="o4r-dS-GBG"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VisitorPal Event Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDY-cv-Hdr">
+                                <rect key="frame" x="190" y="342" width="220" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="7md-jn-qfF"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="Dlo-2Y-b41"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="HQr-YH-pmU"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="KX3-32-lkX"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="j0I-Yr-o01"/>
+                                    <constraint firstAttribute="height" constant="21" id="rxu-ue-wrp"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="t7I-Uh-EKd"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="uQB-wC-yN6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.40000000000000002" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="uQB-wC-yN6"/>
+                                        <exclude reference="t7I-Uh-EKd"/>
+                                        <exclude reference="Dlo-2Y-b41"/>
+                                        <exclude reference="HQr-YH-pmU"/>
+                                        <exclude reference="KX3-32-lkX"/>
+                                        <exclude reference="j0I-Yr-o01"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gDY-cv-Hdr" firstAttribute="top" secondItem="Ina-Gr-Y6E" secondAttribute="bottom" constant="8" id="1R7-By-WpN"/>
+                            <constraint firstItem="gDY-cv-Hdr" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="H39-pN-x5t"/>
+                            <constraint firstItem="Ina-Gr-Y6E" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fE4-MH-Yu5"/>
+                            <constraint firstItem="Ina-Gr-Y6E" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xbh-gY-GNt"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +123,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="AtosLogo" width="266" height="188"/>
+        <image name="visitorpal_logo" width="60" height="60"/>
+    </resources>
 </document>
