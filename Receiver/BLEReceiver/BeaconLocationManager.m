@@ -23,6 +23,8 @@
 @property (nonatomic) BOOL isInitialized;
 @property (nonatomic) BOOL isMonitoring;
 
+@property (nonatomic, assign) CLProximity proximityToMeeting;
+
 @end
 
 @implementation BeaconLocationManager {
@@ -76,6 +78,7 @@
     _locationData = nil;
     _atosID = nil;
     _atosUUID = nil;
+    _proximityToMeeting = CLProximityUnknown;
 }
 
 - (void)initialiseLocationManagerWithLocations:(NSArray*)locations {
@@ -351,9 +354,26 @@
      */
     //END DEBUG BEACONS
     
+    NSDictionary *meetingLoc = [self locationDataForMeeting];
+    
+    BOOL meetingLocationFound = NO;
+    
     CLBeacon *nearestBeacon = nil;
     BOOL nearestBeaconDidDropout = false;
     for (CLBeacon *beacon in sortedBeacons) {
+        
+        // Save the meeting proximity per update
+        if (meetingLoc[@"locationId"] != nil) {
+            if ([meetingLoc[@"locationId"] isEqual:beacon.minor]) {
+                meetingLocationFound = YES;
+                meetingLocationFound = YES;
+                if (_proximityToMeeting != beacon.proximity) {
+                    [self logIfTracing:[NSString stringWithFormat:@"Updating meeting proximity to [%ld]", (long)beacon.proximity]];
+                     _proximityToMeeting = beacon.proximity;
+                    [_delegate beaconManagerMeetingProximityUpdated:_proximityToMeeting rssi:beacon.rssi];
+                }
+            }
+        }
         
         //beacons with an unknown location/accuracy will be first, filter these out
         if (beacon.proximity != CLProximityUnknown && beacon.accuracy != -1) {
@@ -376,6 +396,13 @@
                 }
             }
         }
+    }
+    
+    if (meetingLocationFound == NO && _proximityToMeeting != CLProximityUnknown) {
+        [self logIfTracing:[NSString stringWithFormat:@"Couldnt find meeting beacon - setting proximity to unknown"]];
+        _proximityToMeeting = CLProximityUnknown;
+        [_delegate beaconManagerMeetingProximityUpdated:_proximityToMeeting rssi:-1];
+        
     }
     
     //reset the counter if we're not dealing with a dropout beacon

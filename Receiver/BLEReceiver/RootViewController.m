@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *textMessage;
 @property (weak, nonatomic) IBOutlet UIImageView *imagePowered;
 @property (weak, nonatomic) IBOutlet UIImageView *imageConnected;
+@property (weak, nonatomic) IBOutlet UILabel *labelMeetingProximity;
 @end
 
 @implementation RootViewController {
@@ -41,7 +42,7 @@
     //create the location manager
     BeaconLocationManager *manager = [BeaconLocationManager sharedInstance];
     manager.delegate = self;
-    manager.traceLog = NO;
+    manager.traceLog = YES;
     
     //save initial 'Out of area' state
     [self saveLocationChange:BEACON_NONE];
@@ -215,6 +216,29 @@
     double radians = (newHeading.trueHeading * M_PI) / 180;
     CGAffineTransform compassTransform = CGAffineTransformMakeRotation(-1 * radians);
     [_imgCompass setTransform:compassTransform];
+}
+
+- (void)beaconManagerMeetingProximityUpdated:(CLProximity)proximity rssi:(NSInteger)rssiValue {
+    NSLog(@"RootviewController received proximity update to %ld", (long)proximity);
+    
+    NSString *proximityLabelText;
+    
+    switch (proximity) {
+        case CLProximityUnknown:
+            proximityLabelText = @"Unknown";
+            break;
+        case CLProximityFar:
+            proximityLabelText = @"Far";
+            break;
+        case CLProximityImmediate:
+            proximityLabelText = @"Immediate";
+            break;
+        case CLProximityNear:
+            proximityLabelText = @"Near";
+            break;
+        default : proximityLabelText = @"Invalid";
+    }
+    _labelMeetingProximity.text = proximityLabelText;
 }
 
 @end

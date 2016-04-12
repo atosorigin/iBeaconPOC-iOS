@@ -49,5 +49,6 @@
 - (void)beaconManagerUpdatedLocationId:(int)currentLocationId fromBeacon:(CLBeacon*)beacon;
 
 - (void)beaconManagerChangedHeading:(CLHeading*)newHeading;
+- (void)beaconManagerMeetingProximityUpdated:(CLProximity)proximity rssi:(NSInteger)rssiValue;
 
 @end
