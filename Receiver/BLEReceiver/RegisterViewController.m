@@ -27,6 +27,8 @@
     // Do any additional setup after loading the view.
     
     [self prepopulateFields];
+    [self registerForUpdates];
+    [self textFieldChanged:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -51,6 +53,27 @@
     }
 }
 
+- (void)registerForUpdates {
+    [_emailTextField addTarget:self
+                  action:@selector(textFieldChanged:)
+        forControlEvents:UIControlEventEditingChanged];
+    
+    [_usernameTextField addTarget:self
+                        action:@selector(textFieldChanged:)
+              forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)textFieldChanged:(id)sender {
+    
+    //check if both fields contain text
+    if (([_emailTextField.text length] > 0) && ([_usernameTextField.text length])) {
+    
+        [_buttonRegister setEnabled:YES];
+    } else {
+        [_buttonRegister setEnabled:NO];
+    }
+    
+}
 
 
 - (void)didReceiveMemoryWarning {
