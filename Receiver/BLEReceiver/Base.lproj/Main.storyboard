@@ -12,9 +12,14 @@
         <scene sceneID="V61-kf-6I7">
             <objects>
                 <navigationController id="9qs-vj-H2f" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CVf-1R-Coi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="CVf-1R-Coi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.0" green="0.40000000000000002" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="PZV-Lh-XdE" kind="relationship" relationship="rootViewController" id="kEx-vH-c6e"/>
@@ -183,7 +188,12 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="2tU-L8-9bg"/>
                                     <constraint firstAttribute="width" constant="57" id="A18-Ir-S1G"/>
                                 </constraints>
-                                <state key="normal" title="Register"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="0.0" green="0.40000000000000002" blue="0.63137254899999995" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="2WI-ud-2fN"/>
