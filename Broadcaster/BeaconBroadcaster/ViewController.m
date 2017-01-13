@@ -127,7 +127,7 @@
     
     if (!isBroadcasting) {
         
-        CLBeaconMinorValue major = 0;
+        CLBeaconMinorValue major = 1;
         CLBeaconMajorValue minor = [_broadcastArea selectedRowInComponent:0] + 1;
         
         

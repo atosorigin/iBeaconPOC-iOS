@@ -22,7 +22,7 @@ typedef void (^RegisterFailedBlock) (NSError *error);
 typedef void (^MapSuccessBlock) (UIImage *map);
 typedef void (^MapFailedBlock) (NSError *error);
 
-#define kBaseURL @"http://development-visitorpal.rhcloud.com"
+#define kBaseURL @"https://visitorpal-atosprototype.rhcloud.com"
 
 @interface UploadManager : AFHTTPSessionManager
 
